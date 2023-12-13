@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Jobs.Models.ListPosts>
+@using Jobs.Models
+@{
+    ViewBag.Title = "PostsIndex";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<div class="container-fluid" style="background-color: #eee; margin-top:3%">
+    <div class="container" style="padding-top: 6%;">
+        <div class="form-group" style="">
+            <div class="col-md-offset-2 col-md-10" style="display: flex; ">
+                @*<h2>@ViewBag.ThongBao</h2>*@
+                <a href="@Url.Action("PostsIndex", "ManagePosts")" style="text-decoration: none; font-size: 22px; margin-right: 16px">Bài đăng</a>
+                <a href="@Url.Action("CreateJobs", "Employer")" style="text-decoration: none; font-size: 22px; ">Đăng tuyển</a>
+                @*<input type="submit" value="Đăng tuyển" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />*@
+            </div>
+        </div>
+    </div>
+    <div class="container py-5" style="background-color: #ffffff; padding-top: 30px; min-height: 1000px; ">
+        <h4 class="text-center mb-5">DANH SÁCH BÀI ĐĂNG</h4>
+        <div class="row mx-2">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <th class="text-center">
+                        Tên công việc
+                    </th>
+                    <th class="text-center">
+                        Số lượng ứng viên
+                    </th>
+                    <th class="text-center">
+                        Lọc CV
+                    </th>
+                    <th class="text-center">Cấu hình</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td style="text-align:center">
+                            @{
+                                ViewBag.countResult = 0;
+                                foreach (var c in ViewBag.counts)
+                                {
+                                    if (item.id == c.id)
+                                    {
+                                        ViewBag.countResult = c.count;
+                                    }
+                                }
+                            }
+                            <p>@ViewBag.countResult</p>
+
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("findCV", "ManagePosts")" class="btn btn-dark" role="button">Tìm CV</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("CVDetail", "ManagePosts", new { id = item.id})" class="btn btn-primary text-white" role="button">Xem CV</a>
+                            <a href="@Url.Action("LettersDetail", "ManagePosts", new { id = item.id})" class="btn btn-primary text-white" role="button">Xem thư</a>
+                            <a href="#" class="btn btn-warning text-white" role="button">Sửa</a>
+                            <a href="#" class="btn btn-danger" role="button">Xóa</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+    
+

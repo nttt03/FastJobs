@@ -1,0 +1,102 @@
+﻿@*@using Jobs.Models*@
+@model Jobs.Models.CV
+@{
+    ViewBag.Title = "findCVDetail";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<h2>findCVDetail</h2>
+
+<div class="container mb-20" style="display:flex; justify-content:center;">
+
+    <div class="containerCV">
+        <input type="hidden" size="70" name="idcv" value="@Model.ID" class="form-control " />
+        
+        <div class="head">
+            <div class="row">
+                <div class="col-md-4 avatar-container ">
+                    <img src="~/Images/@Model.Avatar" atl="" class="avatar" id="image" />
+
+                </div>
+
+                <div class="col-md-7 mb-10">
+                    <input type="text" class="nameUser" placeholder="HỌ TÊN CỦA BẠN" name="sName" value="@Model.Name" />
+                    <br />
+                    <input type="text" class="jobUser" name="sJobApp" value="@Model.EducationName2" placeholder="Vị trí ứng tuyển" />
+                </div>
+                @*<input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" accept="image/gif, image/jpeg, image/png, image/jpg" />*@
+
+            </div>
+        </div>
+
+        <div class="bodyCV" style="background-color: #E2E1E1; padding: 30px">
+
+            <div class="left me-5" style="background-color: #ffffff; width: 500px;">
+                <div class="title my-3">
+                    <h5 class="text-white text-center pt-2">LIÊN HỆ</h5>
+                </div>
+                <div style="padding-left: 16px">
+                    <p class="text-truncate me-3">
+                        <i class="fa-solid fa-phone" style="vertical-align:middle; font-size:20px;"></i>
+                        <input type="text" class="inp" placeholder="Số điện thoại" name="sPhone" value="@Model.Phone" />
+                    </p>
+                    <p class="text-truncate me-3">
+                        <i class="fa-regular fa-envelope" style="vertical-align:middle; font-size:20px;"></i>
+                        <input type="text" class="inp" placeholder="Email" name="sGmail" value="@Model.Gmail" />
+                    </p>
+                    <p class="text-truncate me-3" style="display:flex;">
+                        <i class="fa-solid fa-house-user" style="font-size:20px; padding-top:5px"></i>
+                        <textarea class="inp" placeholder="Địa chỉ" name="sYourLocation">@Model.YourLocation</textarea>
+                    </p>
+                </div>
+                <!---->
+
+                <div class="title my-3">
+                    <h5 class="text-white text-center pt-2">KỸ NĂNG</h5>
+                </div>
+                <div style="padding-left: 30px">
+                    <p class="text-truncate me-3">
+                        <input type="text" class="inp" placeholder="Kỹ năng 1" name="sSkill1" value="@Model.Skill1" />
+                    </p>
+                    <p class="text-truncate me-3">
+                        <input type="text" class="inp" placeholder="Kỹ năng 2" name="sSkill2" value="@Model.Skill2" />
+                    </p>
+                </div>
+
+            </div>
+            <!--RIGHT-->
+            <div class="right" style="width:500px;">
+                <div class="group" style="background-color: #ffffff; ">
+                    <div class="title my-3">
+                        <h5 class="text-white text-center pt-2">GIỚI THIỆU</h5>
+                    </div>
+                    <div style="padding-left: 16px">
+                        <p class="text-truncate me-3">
+                            <textarea class="inp" placeholder="Giới thiệu" style="min-height: 300px" name="sAboutMe">@Model.AboutMe</textarea>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="group" style="background-color: #ffffff; ">
+                    <div class="title my-3">
+                        <h5 class="text-white text-center pt-2">HỌC VẤN</h5>
+                    </div>
+                    <div style="padding-left: 30px">
+                        <div class="text-truncate me-3">
+                            <h6>Thời gian</h6>
+                            <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime" value="@Model.EducationTime" />
+                            <span>-  </span>
+                            <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime2" value="@Model.EducationTime2" />
+                            <h6>Nơi đào tạo</h6>
+                            <p class="text-truncate me-3">
+                                <input type="text" class="inp" placeholder="Trường học" name="sEducationName" value="@Model.EducationName" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,131 @@
+﻿
+@model Jobs.Models.Company
+
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .banner {
+        z-index: 1;
+        position: relative;
+        margin-top:0px;
+    }
+    .banner>img{
+        height: 350px;
+        object-fit:cover;
+    }
+    .logo_company {
+        width: 120px;
+        height: 120px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background-color:white;
+        border-radius: 50%;
+        
+    }
+    .logo_company>image{
+        vertical-align:middle;
+    }
+    .logo_company>img{
+        vertical-align:middle;
+        width: 120px;
+        height: 120px;
+        border-radius: 100px;
+        object-fit:cover;
+    }
+    .flex-logo {
+        display: flex;
+        z-index: 2;
+        position: relative;
+        margin-top: -15px;
+       
+    }
+    .flex {
+        display: flex;
+        margin-top: 20px;
+    }
+  
+    .job-item {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+    .job-item:hover {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    .item-content > a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .btn-apply {
+        background-color: #009ACD;
+    }
+    .logo {
+        vertical-align: middle;
+    }
+
+    .logo > img {
+        object-fit: cover;
+        margin-top: 16px;
+        width: 70px;
+        height: 40px;
+    }
+</style>
+
+<div class="container-fluid" style="background-color: #F6F6F6;">
+    <div class="container border rounded-bottom" style="background-color: white; padding-bottom: 20px;">
+        <div class="banner">
+            <img src="~/Images/cv.jpg" class="w-100" alt="..." />
+        </div>
+        <div class="flex-logo px-5">
+            <div class="logo_company flex-logo">
+                <img src="~/Images/@Model.Avatar" style="margin-top:auto; margin-bottom:auto" alt="@Model.Name" />
+            </div>
+            <div class="mt-8" style="margin-top: auto; margin-bottom: auto">
+                <h4 class="px-3 mb-1" style="margin-top:auto; margin-bottom:auto">@Model.Name</h4>
+                <a class="px-3 text-decoration-none" href="@Model.LinkPage"><i class="fa-solid fa-globe me-2 text-dark"></i>@Model.LinkPage</a>
+                <span class="px-3"><i class="fa-solid fa-users me-2"></i>@Model.Employees Nhân viên</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border rounded-3 my-3 py-3 px-3" style="background-color: white;">
+        <div>
+            <h4 class="px-5 my-3">GIỚI THIỆU CHUNG</h4>
+            <div class="text-justify px-5">
+                @Html.Raw(@Model.Description.ToString().Replace("\n", "</p><p>"))
+            </div>
+        </div>
+
+        <div style="padding-top:20px;">
+            <h4 class="px-5">LIÊN HỆ</h4>
+            <br />
+            <div class="text-center">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.549116528404!2d106.6822769118664!3d10.769190489334886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f2261760b3b%3A0x6b0a5b8781b4aace!2zNDQyIMSQLiBOZ3V54buFbiBUaOG7iyBNaW5oIEtoYWksIFBoxrDhu51uZyA1LCBRdeG6rW4gMywgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1698418184095!5m2!1svi!2s"
+                        width="1000" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <br />
+                <span>
+                    <i class="fa-solid fa-location-dot" style="vertical-align:middle;"></i>
+                    @Model.Location
+                </span>
+            </div>
+        </div>
+
+        <!---->
+        @Html.Action("JobsCompany", "Company")
+        <!---->
+
+        <div class="container py-5">
+            @*<h3 style="text-align:center;">Quyền lợi nhân viên</h3>*@
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Profiles";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Thông tin Admin</h2>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row column1">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="white_shd full margin_bottom_30">
+
+                    <div class="full price_table padding_infor_info">
+                        <div class="row">
+                            <!-- user profile section -->
+                            <!-- profile image -->
+                            <div class="col-lg-12">
+                                <div class="full dis_flex center_text">
+                                    <div class="profile_img"><img width="180" class="rounded-circle" src="~/Areas/Admin/Content/images/Images/ava2.jpg" alt="#"></div>
+                                    <div class="profile_contant">
+                                        <div class="contact_inner">
+                                            @{
+                                                var ad1 = (Jobs.Models.ADMIN)HttpContext.Current.Session["Admin"];
+                                                <h3><span class="name_user">@ad1.Name</span></h3>
+                                            }
+                                            <p><strong>Vai trò: </strong>Quản trị viên</p>
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <i class="fa fa-envelope-o"></i>
+                                                    @{
+                                                        <span class="name_user">@ad1.Email</span>
+                                                    }
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-phone"></i>
+                                                    @{
+                                                        <span class="name_user">@ad1.Phone</span>
+                                                    }
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="user_progress_bar">
+                                            <div class="progress_bar">
+                                                <!-- Skill Bars -->
+                                                <span class="skill" style="width:85%;">Truy cập <span class="info_valume">85%</span></span>
+                                                <div class="progress skill-bar ">
+                                                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+                                                    </div>
+                                                </div>
+                                                <span class="skill" style="width:78%;">Chỉnh sửa <span class="info_valume">78%</span></span>
+                                                <div class="progress skill-bar">
+                                                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;">
+                                                    </div>
+                                                </div>
+                                                <span class="skill" style="width:47%;">Cập nhật &amp; Kiểm tra <span class="info_valume">47%</span></span>
+                                                <div class="progress skill-bar">
+                                                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;">
+                                                    </div>
+                                                </div>
+                                                <span class="skill" style="width:65%;">Phân quyền <span class="info_valume">65%</span></span>
+                                                <div class="progress skill-bar">
+                                                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <!-- end row -->
+        </div>
+    </div>
+    <!-- end dashboard inner -->
+</div>

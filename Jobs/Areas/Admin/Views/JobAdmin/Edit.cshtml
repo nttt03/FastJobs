@@ -1,0 +1,116 @@
+﻿@model Jobs.Models.Job
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Chỉnh sửa thông tin</strong></h1>
+        </div>
+    </div>
+</div>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Tên công việc</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Name" value="@Model.Name"
+                   required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Mô tả:</label>
+        <div class="col-md-10">
+            <textarea name="Description" id="mota">@Model.Description</textarea>
+            <script>CKEDITOR.replace('mota');</script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Yêu cầu</strong></label>
+        <div class="col-md-10">
+            <textarea name="Details" id="mota2">@Model.RequestCandidate</textarea>
+            <script>CKEDITOR.replace('mota2');</script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ảnh đại diện</strong></label>
+        <div class="col-md-10">
+            <img src="~/Images/@Model.Image" style="width:80px; height: 80px; border-radius: 50%;"><br />(Ảnh hiện tại)<br />
+            <input type="file" name="fFileUpload" />
+            @ViewBag.ThongBao
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Hạn nộp CV</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="Deadline" value="@Model.Deadline" required/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Chức vụ</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Rank" value="@Model.Rank" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Giới tính</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Gender" value="@Model.Gender" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Địa chỉ</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="WorkLocation" value="@Model.WorkLocation" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Lương tối thiểu</strong></label>
+        <div class="col-md-10">
+            <input type="number" size="40" name="SalaryMin" value="@Model.SalaryMin" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Lương tối đa</strong></label>
+        <div class="col-md-10">
+            <input type="number" size="40" name="SalaryMax" value="@Model.SalaryMax" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày tạo</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="CreatedDate" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày chỉnh sửa</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="ModifiedDate" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-primary" />  < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    </div>
+}

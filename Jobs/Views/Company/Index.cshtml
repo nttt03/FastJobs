@@ -1,0 +1,92 @@
+﻿
+
+@using Jobs.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Jobs.Models.Company>
+
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .card-body > img {
+        height: 153px;
+        object-fit: cover;
+    }
+
+    .card-body > a {
+        text-decoration: none;
+        color: darkgreen;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+        .card-body > a:hover {
+            color: limegreen;
+        }
+
+    .card {
+        height: 360px;
+    }
+</style>
+
+<section class="py-5">
+    <h2 class="text-center mb-3" style="color:green;">CÁC CÔNG TY HÀNG ĐẦU</h2>
+    <div class="container">
+        <div class="row">
+            @foreach (var company in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3 my-2 card-company">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="~/Images/@company.Avatar" class="w-100" alt="..." />
+                            <p></p>
+                            <a href="@Url.Action("Details",new { id = company.ID})" class="py-5">@Truncate(company.Name, 22)</a>
+                            <p class="card-text" style="text-align:justify;">
+                                @Truncate(company.Description, 150)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+        position: absolute;
+        left: 50%;    
+        transform: translate(-50%, -50%);
+    }
+    .MenuTrang>span{
+        border:1px;
+        border-color: blueviolet;
+        width: 20px;
+        height: 20px;
+    }
+    
+</style>
+
+@*Tạo liên kết phần trang*@
+Trang @(Model.PageCount < Model.PageNumber ? 0 :
+Model.PageNumber)/@Model.PageCount
+
+<div class="MenuTrang border border-primary">
+    <span>@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</span>
+</div>

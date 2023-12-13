@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="~/Areas/Admin/Content/images/logo/fastee.png" type="image/x-icon" />
+    <title>Login_Admin</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/Areas/Admin/Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Areas/Admin/Content/style.css" />
+</head>
+
+<body class="inner_page login">
+    <div class="full_container">
+        <div class="container">
+            <div class="center verticle_center full_height">
+                <div class="login_section">
+                    <div class="logo_login">
+                        <div class="center">
+                            <img width="190" src="~/Areas/Admin/Content/images/logo/fastjobs-logo.png" alt="#" />
+                        </div>
+                    </div>
+                    <div class="login_form">
+                        <form role="form" method="post">
+                            <fieldset>
+                                <div class="field">
+                                    <label class="label_field"><i style="font-size: 22px" class="fa-solid fa-user"></i></label>
+                                    <input type="text" name="username" placeholder="Tên đăng nhập" required/>
+                                </div>
+                                <div class="field">
+                                    <label class="label_field"><i style="font-size: 22px" class="fa-solid fa-key"></i></label>
+                                   <input type="password" name="password" placeholder="Mật khẩu" required />
+                                </div>
+                                <p style="font-style:italic; color:red; margin:20px; text-align:center">@ViewBag.ThongBao</p>
+                                <div class="field margin_0">
+                                    <label class="label_field hidden">hidden label</label>
+                                    <button type="submit" class="main_bt"><strong>Đăng nhập</strong></button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

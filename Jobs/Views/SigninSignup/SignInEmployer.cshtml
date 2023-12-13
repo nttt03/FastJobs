@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "SignInEmployer";
+    Layout = "~/Views/Shared/_LayoutSigninSignup.cshtml";
+}
+
+<h4 style="color:red; text-align:center; margin-top:25px;">@ViewBag.ThongBao</h4>
+
+<div class="container">
+    <div style="width: 1000px; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); ">
+        <div class="row border border-2 rounded-4" style="background-color: #063389;">
+            <div class="col-md-5">
+                <img src="~/Images/singin.png" />
+            </div>
+
+            <div class="col-md-7">
+                <h1 class="title text-center mt-5">ĐĂNG NHẬP</h1>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="input-box mt-5">
+                        <div class="tex mb-2">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Tên đăng nhập</span>
+                        </div>
+                        <input class="inp py-2" name="Username" type="text">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 70px;">@ViewData["Err1"]</p>
+                    </div>
+
+                    <div class="input-box mt-3">
+                        <div class="tex mb-2">
+                            <i class="fa-solid fa-unlock"></i>
+                            <span>Mật khẩu</span>
+                        </div>
+                        <input class="inp py-2" name="Pass" type="password">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 70px;">@ViewBag.Err2</p>
+
+                    </div>
+                    
+                    <div class="btn-box pt-5 text-center">
+
+                        <button type="submit" class="btn btn-warning">Đăng nhập</button>
+                    </div>
+
+                    <div class="btn-box pt-5 text-center">
+                        <span class="text-white">Chưa có tài khoản?</span>
+                        <a href="@Url.Action("SignUpEmployer","SigninSignup")" class="text-hover text-decoration-none">Đăng ký</a>
+                        <a href="#" class="text-hover text-decoration-none ms-3">Quên mật khẩu ?</a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

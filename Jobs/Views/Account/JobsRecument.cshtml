@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Jobs.Models.JobUser>
+@using Jobs.Models
+@{
+    ViewBag.Title = "JobsRecument";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@{
+    User user = (User)Session["Account"];
+    if (user == null)
+    {
+        @Html.Action("SignIn", "SigninSignup")
+    }
+
+}
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="~/Images/@user.Avatar" alt="..."
+                             id="image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; border: 1px solid #CCC; border-radius: 50%; object-fit:cover">
+                        <h5 class="my-3">@user.Name</h5>
+                        <p class="text-muted mb-1">@user.Phone</p>
+                        <p class="text-muted mb-4">@user.Email</p>
+                        <div class="box-button d-flex justify-content-between align-items-center  mb-3" style="width: 100%;">
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("update","Account")">Tài khoản</a>
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("Index","CV")">CV</a>
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("JobsRecument","Account")">Công việc</a>
+
+                            <style>
+                                .box-button > a {
+                                    border-radius: 4px;
+                                    border-color: #4CA6A8;
+                                    font-size: 14px;
+                                    font-weight: 500;
+                                    color: #4CA6A8;
+                                }
+
+                                    .box-button > a:hover {
+                                        background-color: #4CA6A8;
+                                        color: #FFF;
+                                    }
+                            </style>
+                        </div>
+
+                        <a style="width: 100%; border-radius: 4px; border-color: #4CA6A8;  font-size: 14px; font-weight: 500; color: #FFF; background-color: #4CA6A8;" class="btn btn-insert-job" href="/profile/ho-so-ca-nhan"></a>
+                        <style>
+                            .btn-insert-job:hover {
+                                background-color: #367879 !important;
+                            }
+                        </style>
+                    </div>
+
+                </div>
+            </div>
+            <!---->
+            <div class="col-lg-8 p-4" style="background-color: #FFF;">
+                <h4 class="mb-4 text-center">Công việc đã ứng tuyển</h4>
+                @{
+                    // Lấy danh sách hồ sơ từ view
+                    List<JobUser> listRecument = ViewBag.ListRecument;
+
+                    // Đếm số lượng hồ sơ
+                    //int count = listRecument?.Count() ?? 0;
+                    
+
+                    // Hiển thị số lượng hồ sơ
+                    //ViewBag.Count = count;
+                    foreach (var item in Model)
+                    {
+                        <div class="d-flex flex-row p-2 mb-3" style="border: 1px solid #CCC; border-radius: 4px; width:70%; margin-left:14%;">
+                            <img src="~/Images/@item.companydata.Avatar" style="width: 50px; height: 50px; margin-right: 12px; object-fit: cover; border-radius: 4px;" />
+                            <div class="d-flex flex-column">
+                                <h5 class="multiline-text m-0">@item.jobdata.Name</h5>
+                                <p class="single-line-text m-0">@item.companydata.Name</p>
+                                <style>
+                                    .multiline-text {
+                                        display: -webkit-box;
+                                        -webkit-line-clamp: 2;
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        width: 420px;
+                                        margin-bottom: 4px !important;
+                                    }
+
+                                    .single-line-text {
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        width: 420px;
+                                        margin-bottom: 4px !important;
+                                    }
+                                </style>
+                                @if (item.recumentdata.Status == 0)
+                                {
+                                    <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #FFCC00; color: #FFF; font-weight: 700; text-align: center;">Đang chờ kết quả</p>
+                                }
+                                else if (item.recumentdata.Status == 1)
+                                {
+                                    <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #339900; color: #FFF; font-weight: 700; text-align: center;">Hồ sơ đã được duyệt</p>
+                                }
+                                else if (item.recumentdata.Status == 2)
+                                {
+                                    <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #CC3300; color: #FFF; font-weight: 700; text-align: center;">Hồ sơ không đạt yêu cầu</p>
+                                }
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+            <!---->
+        </div>
+
+        <div>
+            <a href="@Url.Action("Index","Jobs")" class="" role="button">Quay lại trang chủ</a>
+        </div>
+    </div>
+</section>
+
+}
+
+<style>
+    .form-group {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding-left: 50px;
+    }
+
+    .form-control {
+        border-bottom: 1px solid #EEE !important;
+        font-size: 16px;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+</style>

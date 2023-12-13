@@ -1,0 +1,143 @@
+﻿
+
+
+@{
+    ViewBag.Title = "FastJobs";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    .card {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+        .card > a {
+            text-decoration: none;
+        }
+
+        .card:hover {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+    .card-logo {
+        height: 130px;
+        width: 190px;
+    }
+
+        .card-logo > img {
+            object-fit: cover;
+            padding: 40px;
+            margin: auto;
+            display: block;
+        }
+
+    .card-text {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .flex {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .logo {
+        vertical-align: middle;
+    }
+
+        .logo > img {
+            object-fit: cover;
+            margin-top: 16px;
+            width: 70px;
+            height: 40px;
+        }
+
+    .job-item {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+        .job-item:hover {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+    .item-content > a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .btn-apply {
+        background-color: #009ACD;
+    }
+</style>
+
+<div class="container">
+    <h2 style="margin-bottom:10px; text-align:center;">THỐNG KÊ</h2>
+    <div class="row">
+        <div class="col-sm-4 col-md-3 my-2 mx-5" style="display: flex; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+            <i class="fa fa-bullhorn fa-2x text-primary"></i>
+            <div class="ms-3">
+                <span>@ViewBag.job</span>
+                <p>Công việc</p>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-3 my-2 mx-5" style="display: flex; vertical-align: middle; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+            <i class="fa fa-bullhorn fa-2x text-primary" style="vertical-align:middle"></i>
+            <div class="ms-3">
+                <span>@ViewBag.company</span>
+                <p>Công ty</p>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-3 my-2 mx-5" style="display: flex; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+            <i class="fa fa-bullhorn fa-2x text-primary"></i>
+            <div class="ms-3">
+                <span>@ViewBag.user</span>
+                <p>Người dùng</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" style="background-color: #FFF;">
+    @Html.Action("ListSuggest", "Jobs")
+</div>
+
+<div class="container-fluid py-5" style="background-color: #F6F6F6;">
+    <div class="container py-2">
+        <div>
+            <h2 style="margin-bottom:10px; text-align:center;">CÁC CÔNG TY HÀNG ĐẦU</h2>
+
+            @Html.Action("Company", "Jobs")
+
+        </div>
+    </div>
+</div>
+
+<div class="container my-3 border" style="border-radius:10px;">
+    <div class="row">
+        <div class="col-md-5" style="text-align:center; margin-top:30px;">
+            <h1>Tạo CV ngay</h1>
+            <h3>Công việc liền tay</h3>
+            <p style="font-style:italic">"Hãy tạo ấn tượng với nhà tuyển dụng cùng FastJobs nào!</p>
+            <button class="btn btn-info text-white">Tạo ngay</button>
+        </div>
+        <div class="col-md-7">
+            <img src="~/Images/cv_banner.jpg" alt="..." />
+        </div>
+    </div>
+</div>
+
+
+<div class="container py-5">
+    <h3 style="text-align:center;">CÁC CÔNG VIỆC NỔI BẬT</h3>
+    <div class="container">
+
+        @Html.Action("JobsUser", "Jobs")
+
+
+    </div>
+</div>
+
+@section slider{
+    @Html.Action("SliderPartial", "Jobs")
+}

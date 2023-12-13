@@ -1,0 +1,19 @@
+﻿
+@using Jobs.Models
+
+<div class="row">
+    @foreach (var company in Model)
+    {
+        <div class="col-sm-4 col-md-2 card">
+            <a href="@Url.Action("Details","Company", new { id = company.ID})">
+                <div class="card-logo"><img src="~/Images/@company.Avatar" class="card-img-top" alt="Thumbnail Image 1"> </div>
+                <div class="card-body">
+                    <p class="card-text">@company.Name</p>
+                </div>
+            </a>
+
+        </div>
+
+    }
+
+</div>

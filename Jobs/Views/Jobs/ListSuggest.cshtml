@@ -1,0 +1,76 @@
+﻿@using Jobs.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Jobs.Models.ListJobUser>
+
+@*<style>
+        .gallery-display-area {
+            overflow: hidden;
+            height: 250px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .gallery-wrap {
+            /* width: 500%;*/
+            animation: slideShow 16s infinite;
+        }
+
+        .job {
+            float: left;
+        }
+    </style>*@
+
+@{
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <img src="~/Images/job.png" />
+        </div>
+        <div class="col-md-5">
+            <div class="gallery-display-area">
+                <div class="gallery-wrap">
+                    <h4 class="mb-4 mt-3 text-center text-primary">CÔNG VIỆC GỢI Ý</h4>
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="row job-item job py-2 my-3 mx-2">
+                            <div class="col-md-2 logo">
+                                <img src="~/Images/@item.avatar" alt="..." />
+                            </div>
+                            <div class="col-md-10 item-content">
+                                <a href="@Url.Action("Index", "JobsUser", new { id = item.id })" style="font-weight: 700; font-size: 16px;" class="m-0">@item.nameJob</a>
+                                <br />
+                                <a href="@Url.Action("Index", "JobsUser", new { id = item.id })" style="text-decoration: underline; font-size: 14px;">@item.name</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @*Tạo liên kết phần trang*@
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+            <div class="MenuTrang">
+                <span>@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</span>
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+        position: absolute;
+        left: 70%;
+        
+    }
+
+        .MenuTrang > span {
+            border: 1px;
+            border-color: blueviolet;
+            width: 20px;
+            height: 20px;
+        }
+</style>
+

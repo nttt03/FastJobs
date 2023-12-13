@@ -1,0 +1,60 @@
+﻿
+
+@using Jobs.Models
+@{
+    User user = (User)Session["Account"];
+
+    var getAvatar = user?.Avatar;
+
+    // Gán giá trị mặc định cho ViewBag.GetAvatar nếu getAvatar là null
+    //ViewBag.GetAvatar = getAvatar ?? "avatar_FJ.png";
+    ViewBag.GetAvatar = getAvatar ?? "noavatar.jpg";
+
+}
+@if (Session["Account"] == null) 
+{
+    <div class="row">
+        <div class="col-3">
+            <div class="fs-4"><i class="fa-solid fa-user"></i></div>
+        </div>
+        <div class="col-9">
+            @*Xin chào<br />*@
+            <a href="@Url.Action("SignIn","SigninSignup")" style="text-decoration:none"><strong class="text-danger">Đăng nhập</strong></a>
+            <a href="@Url.Action("SignUp","SigninSignup")" style="text-decoration:none"><strong class="text-danger">Đăng ký</strong></a>
+        </div>
+    </div>
+
+}
+else 
+{
+
+    <div class="row">
+        <div class="col-3">
+            <div class="fs-4 user-avatar"><img src="~/Images/@ViewBag.GetAvatar" /></div>  
+        </div>
+        <div class="col-9 dropdown">
+            
+            <div class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Xin chào<br />
+                <strong class="text-danger">@user.Name</strong>
+            </div>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="@Url.Action("update","Account")">Quản lý tài khoản</a></li>
+                <li><a class="dropdown-item" href="~/SigninSignup/Logout">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="#">...</a></li>
+            </ul>
+        </div>
+    </div>
+
+}
+<style>
+
+    .user-avatar > img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100px;
+        object-fit: cover;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+</style>

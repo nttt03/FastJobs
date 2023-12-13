@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "SignUpEmployer";
+    Layout = "~/Views/Shared/_LayoutSigninSignup.cshtml";
+}
+
+<style>
+    .inp {
+        width: 400px;
+        border: 1px;
+        border-radius: 7px;
+        outline-color: blue;
+        margin-left: 30px;
+    }
+
+    .tex {
+        margin-left: 30px;
+    }
+
+    .title {
+        color: #ff00ac;
+    }
+</style>
+
+<h4 style="color:red; text-align:center; margin-top:25px;">@ViewBag.ThongBao</h4>
+
+<div class="container">
+    <div style="width: 1000px; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); ">
+        <div class="row border border-2 rounded-4" style="background-color: #046715;">
+            <div class="col-md-5">
+                <img src="~/Images/singup.png" />
+            </div>
+
+            <div class="col-md-7">
+                <h1 class="title mt-5" style="margin-left:25%">ĐĂNG KÝ</h1>
+
+                @using (Html.BeginForm("SignUpEmployer", "SigninSignup"))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="input-box mt-5">
+                        <div class="tex mb-2">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Họ và tên</span>
+                        </div>
+                        <input class="inp py-2" name="Name" type="text">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 60px;">@ViewData["err1"]</p>
+                    </div>
+
+                    <div class="input-box mt-3">
+                        <div class="tex mb-2">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Tên đăng nhập</span>
+                        </div>
+                        <input class="inp py-2" name="Username" type="text">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 60px;">@ViewData["err2"]</p>
+                    </div>
+
+                    <div class="input-box mt-3">
+                        <div class="tex mb-2">
+                            <i class="fa-solid fa-unlock"></i>
+                            <span>Mật khẩu</span>
+                        </div>
+                        <input class="inp py-2" name="Pass" type="password">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 60px;">@ViewData["err3"]</p>
+
+                    </div>
+
+                    <div class="input-box mt-3">
+                        <div class="tex mb-2">
+                            <i class="fa-solid fa-unlock"></i>
+                            <span>Nhập lại mật khẩu</span>
+                        </div>
+                        <input class="inp py-2" name="PassRepeat" type="password">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 60px;">@ViewData["err4"]</p>
+
+                    </div>
+
+                    <div class="input-box mt-3">
+                        <div class="tex mb-2">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span>Email</span>
+                        </div>
+                        <input class="inp py-2" name="Email" type="text">
+                        <p style="font-style: italic; color: #ffd800; margin-left: 60px;">@ViewData["err5"]</p>
+
+                    </div>
+
+                    <div class="" style="margin-left:43%;">
+                        <span class="text-white">Bạn đã tài khoản?</span>
+                        <a href="@Url.Action("SignInEmployer","SigninSignup")" class="text-hover text-decoration-none">Đăng nhập</a>
+                    </div>
+
+                    <div class="btn-box pt-3 pb-5" style="margin-left:30%; width: 90px; ">
+                        <button type="submit" style="width: 150px; " class="btn btn-warning">Đăng ký</button>
+                    </div>
+
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

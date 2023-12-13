@@ -1,0 +1,107 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="~/Areas/Admin/Content/images/logo/fastee.png" type="image/x-icon" />
+    <title>FastJobs_Admin</title>
+
+    <link rel="stylesheet" href="~/Areas/Admin/Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Areas/Admin/Content/style.css" />
+    <link rel="stylesheet" href="~/Areas/Admin/Content/css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="dashboard dashboard_1">
+    <div class="full_container">
+        <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar_blog_1">
+                    <div class="sidebar-header">
+                        <div class="logo_section">
+                            <a href="~/Admin/Admin/Index"><img class="logo_icon img-responsive" src="~/Areas/Admin/Content/images/logo/logo.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="sidebar_user_info">
+                        <div class="icon_setting"></div>
+                        <div class="user_profle_side">
+                            <div class="user_img"><img class="img-responsive" src="~/Areas/Admin/Content/images/Images/ava2.jpg" alt="#" /></div>
+                            <div class="user_info">
+                                @{
+                                    var ad = (Jobs.Models.ADMIN)HttpContext.Current.Session["Admin"];
+                                    <h6><span>@ad.Name</span></h6>
+                                }
+                                <p><span class="online_animation"></span> Online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar_blog_2">
+                    <h4>Quản trị</h4>
+                    <ul class="list-unstyled components">
+                        <li><a href="~/Admin/AccountAdmin/Index"><i class="fa-solid fa-user-tie blue2_color"></i><span>Tài khoản</span></a></li>
+                        <li><a href="~/Admin/UserAdmin/Index"><i class="fa-solid fa-user orange_color"></i> <span>Người dùng</span></a></li>
+                        <li><a href="~/Admin/EmployerAdmin/Index"><i class="fa-solid fa-building purple_color2"></i> <span>Nhà tuyển dụng</span></a></li>
+                        <li><a href="~/Admin/CompanyAdmin/Index"><i class="fa-solid fa-envelope green_color"></i> <span>Công ty</span></a></li>
+                        <li><a href="~/Admin/JobAdmin/Index"><i class="fa-solid fa-briefcase blue1_color"></i> <span>Công việc</span></a></li>
+                        <li><a href="~/Admin/CVAdmin/Index"><i class="fa-solid fa-file orange_color2"></i> <span>Đơn ứng tuyển</span></a></li>
+                        <li><a href="~/Admin/RecruitmentFees/Index"><i class="fa-solid fa-money-check green_bg2"></i> <span>Phí dịch vụ</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+                <!-- topbar -->
+                <div class="topbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="index.html"><img class="img-responsive" src="~/Areas/Admin/Content/images/logo/fastjobs-logo.png" alt="#" /></a>
+                            </div>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    <ul class="user_profile_dd">
+                                        <li>
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                <img class="img-responsive rounded-circle" src="~/Areas/Admin/Content/images/Images/ava2.jpg" alt="#" />
+                                                @{
+                                                    var ad1 = (Jobs.Models.ADMIN)HttpContext.Current.Session["Admin"];
+                                                    <span class="name_user">@ad1.Name</span>
+                                                }
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="~/Admin/Admin/Profiles">Thông tin</a>
+                                                <a class="dropdown-item" href="~/Admin/Home/Logout"><span>Đăng xuất</span> <i class="fa fa-sign-out"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <!-- Bảng điều khiển trong -->
+                <div class="midde_cont">
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div>
+                    <!-- footer -->
+                    <div class="container-fluid">
+                        <div class="footer">
+                            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Kết thúc bảng điều khiển trong -->
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Areas/Admin/Content/js/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Content/js/bootstrap.min.js"></script>
+    <script src="~/Areas/Admin/Content/js/custom.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

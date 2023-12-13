@@ -1,0 +1,173 @@
+﻿@model Jobs.Models.Company
+
+@{
+    ViewBag.Title = "CreateCompany";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+
+</script>
+<script>
+    function chooseFileLogo(fileInput1) {
+        if (fileInput1.files && fileInput1.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#imageLogo').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput1.files[0]);
+        }
+    }
+</script>
+
+@if (TempData["message"] != null)
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["message"]');
+    </script>
+}
+
+@using (Html.BeginForm("CreateCompany", "Employer", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section style="background-color: #eee; margin-top: 84px;">
+        <div class="background">
+            @if (ViewBag.Background == null)
+            {
+                // Hiển thị hình ảnh mặc định
+                <img src="~/Images/banner.jpg" alt="..."
+                     id="image" style="width: 100%; height: 350px; object-fit:cover">
+            }
+            else
+            {
+                // Hiển thị hình ảnh từ ViewBag.Background
+                <img src="~/Images/@ViewBag.Background" alt="..."
+                     id="image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; border: 1px solid #CCC; border-radius: 10px; object-fit:cover">
+            }
+
+        </div>
+        <div class="container py-5" style="background-color:#ffffff">
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="row form-group">
+                    <h2 class="text-center text-info">@Html.Raw(ViewBag.ThongBao)</h2>
+                    <div class="col-md-2 logoCompany">
+                        <img src="~/Images/@ViewBag.Avatar" alt="Logo cho công ty của bạn"
+                             id="imageLogo" style="width: 150px; height: 150px; border: 1px solid #CCC; border-radius: 10px; object-fit:cover">
+                    </div>
+                    <div class="col-md-10 form-group">
+                        <strong>Mô tả</strong>
+                        <div class="col-md-12">
+                            <textarea name="sDescription" id="mota">@ViewBag.Description</textarea>
+                            <script>CKEDITOR.replace('mota');</script>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2" style="background-color:#00ff21">
+                    <div class="form-group">
+                        <strong>Logo công ty</strong>
+                        <div class="col-md-11">
+                            <input type="file" value="@ViewBag.Avatar" name="fFileLogo" id="imageFileLogo" onchange="chooseFileLogo(this)" required class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Hình nền công ty</strong>
+                        <div class="col-md-11">
+                            <input type="file" value="@ViewBag.Background" name="fFileBackground" id="imageFile" onchange="chooseFile(this)" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <strong>Tên công ty</strong>
+                    <div class="col-md-11">
+                        <input type="text" size="70" name="sName" value="@ViewBag.Name" class="form-control" required />
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Link công ty</strong>
+                    <div class="col-md-11">
+                        <input type="text" size="70" name="sLinkPage" value="@ViewBag.LinkPage" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Quy mô công ty(số lượng nhân viên)</strong>
+                    <div class="col-md-11">
+                        <input type="number" size="70" name="sEmployees" value="@ViewBag.Employees" class="form-control" required />
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Địa chỉ công ty</strong>
+                    <div class="col-md-11">
+                        <input type="text" size="70" name="sLocation" value="@ViewBag.Location" class="form-control" required />
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group text-center mb-3" style="margin-bottom:20px">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Tạo công ty" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div>
+                <a href="@Url.Action("IndexEmployer","Employer")" class="" role="button">Quay lại trang chủ</a>
+            </div>
+        </div>
+
+    </section>
+}
+
+<style>
+    .form-group {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding-left: 50px;
+    }
+
+    .form-control {
+        border-bottom: 1px solid #EEE !important;
+        font-size: 16px;
+    }
+
+    .card-pro {
+        background-color: #ffffff !important;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+</style>

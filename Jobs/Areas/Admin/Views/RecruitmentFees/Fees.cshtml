@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Fees";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Số liệu đã thu</strong></h1>
+        </div>
+    </div>
+</div>
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>Mã công ty</th>
+                <th>Công ty</th>
+                <th>Mã công việc</th>
+                <th>Tên công việc</th>
+                <th>Ngày đóng</th>
+                <th>Số tiền</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.id
+                    </td>
+                    <td>
+                        @item.name
+                    </td>
+                    <td>
+                        @item.idJob
+                    </td>
+                    <td>
+                        @item.nameJob
+                    </td>
+                    <td>
+                        @Html.FormatValue(@item.date, "{0:dd/MM/yyyy}")
+                    </td>
+                    <td>
+                        @item.money<text>.000đ</text>
+                    </td>
+                </tr>
+            }
+        </table>
+</div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+    </div>
+</div>

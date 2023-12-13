@@ -1,0 +1,125 @@
+﻿@model Jobs.Models.Job
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+
+<div class="row column_title">
+
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Thêm công việc</strong></h1>
+        </div>
+    </div>
+</div>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+@using (Html.BeginForm("Create", "JobAdmin", FormMethod.Post, new
+{
+    @enctype = "multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Tên công việc</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Name" value="@ViewBag.Name"
+                   required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Mô tả:</label>
+        <div class="col-md-10">
+            <textarea name="Description" id="mota">@ViewBag.Description</textarea>
+            <script>CKEDITOR.replace('mota');</script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Yêu cầu</strong></label>
+        <div class="col-md-10">
+            <textarea name="Details" id="mota2">@ViewBag.RequestCandidate</textarea>
+            <script>CKEDITOR.replace('mota2');</script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ảnh đại diện</strong></label>
+        <div class="col-md-10">
+            <input type="file" name="avatar" />
+            @*Thông báo lỗi yêu cầu phải chọn ảnh bìa*@
+            @ViewBag.ThongBao
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Hạn nộp CV</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="Deadline" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Chức vụ</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Rank" value="@ViewBag.Rank" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Giới tính</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Gender" value="@ViewBag.Gender" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Địa chỉ</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="WorkLocation" value="@ViewBag.WorkLocation" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Lương tối thiểu</strong></label>
+        <div class="col-md-10">
+            <input type="number" size="40" name="SalaryMin" value="@ViewBag.SalaryMin" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Lương tối đa</strong></label>
+        <div class="col-md-10">
+            <input type="number" size="40" name="SalaryMax" value="@ViewBag.SalaryMax" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày tạo</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="CreatedDate" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày chỉnh sửa</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="ModifiedDate" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm" class="btn btn-primary" /> < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    </div>
+
+</div>
+}

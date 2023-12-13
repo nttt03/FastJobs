@@ -1,0 +1,11 @@
+﻿@model Jobs.Models.Job
+@using Jobs.Models
+
+@Html.DropDownList("CareerID", (SelectList)ViewBag.CareerID, new { @class = "form-control_" })
+
+<style>
+    .form-control_{
+        outline: none;
+        border: none;
+    }
+</style>

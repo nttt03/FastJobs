@@ -1,0 +1,90 @@
+﻿@model Jobs.Models.Company
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Xóa Công ty</strong></h1>
+        </div>
+    </div>
+</div>
+
+<h3 style="color: red">Bạn chắc chắn muốn xóa công ty này?</h3>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Tên công ty</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>Đường dẫn trang</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkPage)
+        </dd>
+
+        <dt>Mô tả</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>Ảnh đại diện</dt>
+
+        <dd>
+            <img src="~/Images/@Model.Avatar" style="width:80px; height: 80px; border-radius: 50%;"><br />
+        </dd>
+
+        <dt>Ảnh nền</dt>
+
+        <dd>
+            <img src="~/Images/@Model.Background" style="width:80px; height: 60px;" />
+        </dd>
+
+        <dt>Nhân sự</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employees)
+        </dd>
+
+        <dt>Địa chỉ</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>Ngày tạo</dt>
+        <dd>@Html.FormatValue(@Model.CreatedDate, "{0:dd/MM/yyyy}")</dd>
+
+        <dt>Ngày chỉnh sửa</dt>
+        <dd>@Html.FormatValue(@Model.ModifiedDate, "{0:dd/MM/yyyy}")</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />  < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    }
+</div>

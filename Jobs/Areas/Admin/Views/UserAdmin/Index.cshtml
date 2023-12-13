@@ -1,0 +1,139 @@
+﻿@using Jobs.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Jobs.Models.User>
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Areas/Admin/Content/js/jquery-3.3.1.min.js"></script>""
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('fast');
+        }, 2000);
+    </script>
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1 style="text-align:center"><strong>QUẢN LÝ NGƯỜI DÙNG</strong></h1>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get, new { @class = "navbar-search" }))
+{
+    <div class="input-group">
+        <a class="btn btn-primary ml-3" href="~/Admin/UserAdmin/Create">
+            Thêm mới
+        </a>
+    </div>
+    <style>
+        .navbar-search {
+            max-width: 40%;
+            margin-bottom: 1rem;
+        }
+
+            .navbar-search > input {
+                border: 1px solid #d1d3e2;
+            }
+    </style>
+}
+
+<div class="row">
+    @if (ViewBag.SuccessMess != null)
+    {
+        <div id="msgAlert" class="alert alert-success" role="alert">
+            @ViewBag.SuccessMess
+        </div>
+    }
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <tr>
+            <th>Tên đăng nhập</th>
+            <th>Mật khẩu</th>
+            <th>Họ tên</th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Ảnh đại diện</th>
+            <th>Ngày tạo</th>
+            <th>Ngày cập nhật</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td style="text-align:center">
+                    @Html.HiddenFor(modelItem => item.Password)
+                    ****
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.Address != null)
+                    {
+                        @Truncate(item.Address, 25)
+                    }
+
+                </td>
+                <td>
+                    @Truncate(item.Email, 15)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @if (item.Avatar != null)
+                    {
+                        <img src="~/Images/@item.Avatar" style="width:60px; height: 60px; border-radius: 50%;" />
+                    }
+
+                </td>
+                <td>
+                    @Html.FormatValue(@item.CreatedDate, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @Html.FormatValue(@item.ModifiedDate, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.ID })" class="btn btn-warning" role="button">Sửa</a>
+                    <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-danger" role="button">Xóa</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@*Tạo liên kết phần trang*@
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    <br /> <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>

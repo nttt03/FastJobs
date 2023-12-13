@@ -1,0 +1,90 @@
+﻿@using Jobs.Models
+@{
+    ViewBag.Title = "findCV";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+@using (Html.BeginForm("findCV", "ManagePosts", FormMethod.Get, new { @enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid" style="background-color: #f8f6f6">
+        <div class="container" style="">
+            <div class="row" style="margin-top: 80px; ">
+                <div class="col-md-3" style="margin-top: 80px; min-height: 180px">
+                    <div class="card card-body" style="background-color: #ffffff; width: auto; height: auto; margin-bottom: 320px; ">
+                        <h3 style="color: #078d0a">TÌM KIẾM ỨNG VIÊN</h3>
+                        <div class="form-group mt-3">
+                            <strong>Địa chỉ</strong>
+                            <div class="col-md-12">
+                                <input type="text" size="70" name="sAddressKey" value="" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <strong>Từ khoá ngành nghề</strong>
+                            <div class="col-md-12">
+                                <input type="text" size="70" name="sJobKey" value="" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @*<a href="@Url.Action("findCV","ManagePosts")" class="btn btn-primary text-white mt-3 mb-2" role="button">Tìm kiếm</a>*@
+                            <button class="btn btn-primary text-white mt-3 mb-2">Tìm kiếm</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-8" style="background-color: #ffffff; margin-top: 80px; min-height: 380px;  ">
+                    <br />
+
+                    @if (ViewBag.flag == "1")
+                    {
+                        <strong> Đã tìm thấy </strong>
+                        <strong style="color: #08dd13; ">@ViewBag.count</strong>
+                        <strong>ứng viên phù hợp</strong>
+                        foreach (var item in Model)
+                        {
+                            <hr />
+                            <div class="px-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <img src="~/Images/@item.Avatar" style="width: 60px; height: 60px; border: 1px; border-radius: 50%; " />
+                                        </div>
+                                        <div class="col-md-10 ms-3">
+                                            <strong style="color: #078d0a">@item.Name</strong>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <i class='bx bx-book-content' style="vertical-align:middle; font-size:20px;"></i>
+                                                    <span>@item.EducationName2</span>
+                                                    <br />
+                                                    <i class="fa-solid fa-house-user" style="font-size:20px; padding-top:5px"></i>
+                                                    <span>@item.YourLocation</span>
+                                                </div>
+                                                <div class="col-md-2" style="display: flex; min-height: 18px; vertical-align:middle; ">
+                                                    <i class="fa-solid fa-phone mt-1" style="font-size: 16px;"></i>
+                                                    <span class="ms-1">@item.Phone</span>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <a href="@Url.Action("findCVDetail",new { id = item.ID})" class="btn text-white mt-3 mb-1" style="width: 130px; background-color: #808080; border-radius: 22px; " role="button">Xem CV</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center">
+
+                            <img src="~/Images/tree.png" />
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

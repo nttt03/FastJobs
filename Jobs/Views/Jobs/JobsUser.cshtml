@@ -1,0 +1,84 @@
+﻿@*@model IEnumerable<Jobs.Models.ListJobUser>*@
+@using Jobs.Models
+@*@using PagedList.Mvc
+@model PagedList.PagedList<Jobs.Models.ListJobUser>*@
+
+@using (Html.BeginForm("JobsUser", "Jobs", new { @enctype = "multipart/form-data" }))
+{
+foreach (var item in Model)
+{
+
+    <div class="row job-item py-2 my-3">
+        <div class="col-md-1 logo">
+            <img src="~/Images/@item.avatar" alt="..." />
+        </div>
+        <div class="col-md-8 item-content">
+            <a href="@Url.Action("Index", "JobsUser", new { id = item.id })" style="font-weight: 700; font-size: 16px;" class="m-0">@item.nameJob</a>
+            <br />
+            <a href="@Url.Action("Index", "JobsUser", new { id = item.id })" style="text-decoration: underline; font-size: 14px;">@item.name</a>
+            <div class="item-content-property">
+                <span class="text-truncate me-3">
+                    <i class="fa-solid fa-location-dot" style="vertical-align:middle;"></i>
+                    @item.location
+                </span>
+                <span class="mx-2">|</span>
+                <span class="text-truncate me-3">
+                    <i class='bx bx-book-content' style="vertical-align:middle; font-size:20px;"></i>
+                    @item.typeJob
+                </span>
+                <span class="mx-2">|</span>
+                <span class="text-truncate me-3">
+                    <i class='bx bx-money-withdraw' style="vertical-align: middle; font-size: 20px;"></i>
+                    @if ((item.salaryMin != null) && (item.salaryMaX != null))
+                    {
+                         <span>@item.salaryMin - @item.salaryMaX</span>
+                    }
+                    else
+                    {
+                        <span>Thương lượng</span>
+                    }
+                </span>
+                @*<span class="mx-2">|</span>
+                    <span class="text-truncate me-3">
+                        <i class='bx bx-time-five' style="vertical-align: middle; font-size: 20px;"></i>
+                        15 phút trước
+                    </span>*@
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="d-flex flex-column align-items-start align-items-md-end justify-content-center box-action">
+                <div class="flex">
+                    @*<a class="btn btn-light btn-square me-3 btn-save" href="#"><i class="far fa-heart text-primary" style="color:red;"></i></a>*@
+                    <a class="btn btn-info btn-apply text-white" href="#">Ứng tuyển ngay</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+}
+
+<!--style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+        position: absolute;
+        left: 50%;    
+        transform: translate(-50%, -50%);
+    }
+    .MenuTrang>span{
+        border:1px;
+        border-color: blueviolet;
+        width: 20px;
+        height: 20px;
+    }
+    
+</style>-->
+
+@*Tạo liên kết phần trang*@
+<!--Trang (Model.PageCount < Model.PageNumber ? 0 :
+Model.PageNumber)/Model.PageCount
+
+<div class="MenuTrang border border-primary mt-3">
+    <span>Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</span>
+</div>-->

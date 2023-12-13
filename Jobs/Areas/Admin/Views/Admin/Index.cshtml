@@ -1,0 +1,122 @@
+﻿@using Jobs.Models
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="midde_cont">
+        <div class="container-fluid">
+            <div class="row column_title">
+                <div class="col-md-12">
+                    <div class="page_title">
+                        <h1>Quản trị</h1>
+                    </div>
+                </div>
+                <div class="row column1">
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa fa-user yellow_color"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.user</p>
+                                    <p class="head_couter">Người dùng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa-solid fa-building purple_color2"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.employer</p>
+                                    <p class="head_couter">Nhà tuyển dụng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa-solid fa-envelope green_color"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.company</p>
+                                    <p class="head_couter">Công ty</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa-solid fa-briefcase blue1_color"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.job</p>
+                                    <p class="head_couter">Công việc</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa-solid fa-file orange_color2"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.cv</p>
+                                    <p class="head_couter">Đơn ứng tuyển</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="full counter_section margin_bottom_30">
+                            <div class="couter_icon">
+                                <div>
+                                    <i class="fa-regular fa-money-bill-1 green_bg2"></i>
+                                </div>
+                            </div>
+                            <div class="counter_no">
+                                <div>
+                                    <p class="total_no">@ViewBag.fee</p>
+                                    <p class="head_couter">Đã thu phí</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

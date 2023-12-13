@@ -1,0 +1,55 @@
+﻿@model Jobs.Models.ADMIN
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Xóa tài khoản</strong></h1>
+        </div>
+    </div>
+</div>
+
+<h3 style="color: red">Bạn chắc chắn muốn xóa tài khoản Admin này?</h3>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên đăng nhập:</dt>
+        <dd>@Html.DisplayFor(model => model.UserName)</dd>
+
+        <dt>Mật khẩu:</dt>
+        <dd>@Html.HiddenFor(model => model.Password)
+            **** </dd>
+
+        <dt>Họ tên:</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>Địa chỉ:</dt>
+        <dd>@Html.DisplayFor(model => model.Address) </dd>
+
+        <dt>Email:</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>Số điện thoại:</dt>
+        <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt>Quyền:</dt>
+        <dd>@Html.DisplayFor(model => model.Role)</dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />  < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    }
+</div>

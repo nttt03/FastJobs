@@ -1,0 +1,169 @@
+﻿@model Jobs.Models.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+
+@if (TempData["message"] != null)
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["message"]');
+    </script>
+}
+
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="~/Images/@Model.Avatar" alt="@Model.Name"
+                                 id="image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; border: 1px solid #CCC; border-radius: 50%; object-fit:cover">
+                            <h5 class="my-3">@Model.Name</h5>
+                            <p class="text-muted mb-1">@Model.Phone</p>
+                            <p class="text-muted mb-4">@Model.Email</p>
+                            <div class="box-button d-flex justify-content-between align-items-center  mb-3" style="width: 100%;">
+                                <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("update","Account")">Tài khoản</a>
+                                <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("Index","CV")">CV</a>
+                                <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="#">Công việc</a>
+
+                                <style>
+                                    .box-button > a {
+                                        border-radius: 4px;
+                                        border-color: #4CA6A8;
+                                        font-size: 14px;
+                                        font-weight: 500;
+                                        color: #4CA6A8;
+                                    }
+
+                                        .box-button > a:hover {
+                                            background-color: #4CA6A8;
+                                            color: #FFF;
+                                        }
+                                </style>
+                            </div>
+
+                            <a style="width: 100%; border-radius: 4px; border-color: #4CA6A8;  font-size: 14px; font-weight: 500; color: #FFF; background-color: #4CA6A8;" class="btn btn-insert-job" href="/profile/ho-so-ca-nhan">Cập nhật hồ sơ cá nhân</a>
+                            <style>
+                                .btn-insert-job:hover {
+                                    background-color: #367879 !important;
+                                }
+                            </style>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-8 p-4" style="background-color: #FFF;">
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            <strong>Họ và tên</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="sName" value="@Model.Name" class="form-control" required />
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Địa chỉ</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="sAddress" value="@Model.Address" class="form-control" required />
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Email</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="sEmail" value="@Model.Email" class="form-control" required />
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Số điện thoại</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="sPhone" value="@Model.Phone" class="form-control" required />
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <p>Mật khẩu</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" value="@Model.Avatar" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                        *@
+
+                        <div class="form-group">
+                            -
+                            <strong>Ảnh đại diện</strong>
+                            <div class="col-md-11">
+                                @*<input type="text" size="70" value="@Model.Avatar" class="form-control" />*@
+                                <input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group text-center">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Lưu thay đổi" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="@Url.Action("Index","Jobs")" class="" role="button">Quay lại trang chủ</a>
+            </div>
+        </div>
+    </section>
+
+}
+
+<style>
+    .form-group {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding-left: 50px;
+    }
+
+    .form-control {
+        border-bottom: 1px solid #EEE !important;
+        font-size: 16px;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+</style>
+

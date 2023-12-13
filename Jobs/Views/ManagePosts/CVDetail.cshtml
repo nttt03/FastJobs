@@ -1,0 +1,288 @@
+﻿@using Jobs.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Jobs.Models.ListResult>
+
+@{
+    ViewBag.Title = "PostsDetail";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+<!--#04571c-->
+<style>
+    :root {
+        --color-cv: #006666;
+    }
+
+    .head {
+        background-color: var(--color-cv);
+        padding: 10px;
+    }
+
+    .avatar-container {
+        background-color: #ffffff;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        margin-left: 10px;
+    }
+
+    .avatar {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-left: 158px;
+        padding: 8px;
+    }
+
+    .nameUser {
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 40px;
+        color: #ffffff;
+        min-width: 500px;
+    }
+
+        .nameUser:focus {
+            outline: none;
+        }
+
+    .jobUser:focus {
+        outline: none;
+    }
+
+    .jobUser {
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 22px;
+        color: #ffffff;
+        min-width: 500px;
+    }
+
+    ::placeholder {
+        color: #808080;
+        opacity: 0.9;
+    }
+
+    .inp {
+        background-color: #ffffff;
+        border: none;
+        font-size: 18px;
+        color: #000000;
+        width: 400px;
+    }
+
+        .inp:focus {
+            outline: none;
+        }
+
+    .containerCV {
+        width: 1050px;
+        text-align: center;
+        left: 50%;
+    }
+
+    .bodyCV {
+        display: flex;
+        min-height: 1200px;
+    }
+
+    .left {
+        text-align: left;
+        border-radius: 10px;
+        height: 500px;
+    }
+
+    .title {
+        width: 180px;
+        height: 50px;
+        background-color: var(--color-cv);
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+    }
+
+    .right {
+        text-align: left;
+    }
+</style>
+
+@using (Html.BeginForm("CVDetail", "ManagePosts", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div style="margin-top: 4%; height: 55px; "></div>
+
+    foreach (var item in Model)
+    {
+        if (item.CVdata != null)
+        {
+            <div class="container mb-20" style="display:flex; justify-content:center;">
+                <div class="row me-3" style="margin-top: 60px; ">
+                    <div class="col-md-12">
+                        <h5 style="color: #2b42f6">@ViewBag.ThongBao</h5>
+                        <h5>Phê duyệt</h5>
+                        <input type="radio" id="status1" name="iStatus" value="1" />
+                        <label for="status1">Đạt yêu cầu</label><br>
+                        <input type="radio" id="status2" name="iStatus" value="2" />
+                        <label for="status2">Không đạt yêu cầu</label><br>
+                        <input type="submit" value="Hoàn tất" class="btn btn-outline-primary mt-3" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+                        <br /><br />
+                        <a href="@Url.Action("PostsIndex","ManagePosts")" class="" role="button">Quay lại</a>
+                    </div>
+                </div>
+                
+                <div class="containerCV">
+                    <input type="hidden" size="70" name="sID" value="@item.Recumentdata.ID" class="form-control " />
+                    <div class="col-md-4 mb-3">
+                        @if (item.Recumentdata.Status == 0)
+                        {
+                            <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #FFCC00; color: #FFF; font-weight: 700; text-align: center;">Hồ sơ chưa được duyệt</p>
+                        }
+                        else if (item.Recumentdata.Status == 1)
+                        {
+                            <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #339900; color: #FFF; font-weight: 700; text-align: center;">Hồ sơ đã được duyệt (đạt yêu cầu)</p>
+                        }
+                        else if (item.Recumentdata.Status == 2)
+                        {
+                            <p class="m-0" style="padding: 8px; border-radius: 4px; background-color: #CC3300; color: #FFF; font-weight: 700; text-align: center;">Hồ sơ đã được duyệt (không đạt yêu cầu)</p>
+                        }
+
+                    </div>
+                    <div class="head">
+                        <div class="row">
+                            <div class="col-md-4 avatar-container ">
+                                <img src="~/Images/@item.CVdata.Avatar" atl="" class="avatar" id="image" />
+
+                            </div>
+
+                            <div class="col-md-7 mb-10">
+                                <input type="text" class="nameUser" placeholder="HỌ TÊN CỦA BẠN" name="sName" value="@item.CVdata.Name" />
+                                <br />
+                                <input type="text" class="jobUser" name="sJobApp" value="@item.CVdata.EducationName2" placeholder="Vị trí ứng tuyển" />
+                            </div>
+                            @*<input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" accept="image/gif, image/jpeg, image/png, image/jpg" />*@
+
+                        </div>
+                    </div>
+
+                    <div class="bodyCV" style="background-color: #E2E1E1; padding: 30px">
+
+                        <div class="left me-5" style="background-color: #ffffff; width: 500px;">
+                            <div class="title my-3">
+                                <h5 class="text-white text-center pt-2">LIÊN HỆ</h5>
+                            </div>
+                            <div style="padding-left: 16px">
+                                <p class="text-truncate me-3">
+                                    <i class="fa-solid fa-phone" style="vertical-align:middle; font-size:20px;"></i>
+                                    <input type="text" class="inp" placeholder="Số điện thoại" name="sPhone" value="@item.CVdata.Phone" />
+                                </p>
+                                <p class="text-truncate me-3">
+                                    <i class="fa-regular fa-envelope" style="vertical-align:middle; font-size:20px;"></i>
+                                    <input type="text" class="inp" placeholder="Email" name="sGmail" value="@item.CVdata.Gmail" />
+                                </p>
+                                <p class="text-truncate me-3" style="display:flex;">
+                                    <i class="fa-solid fa-house-user" style="font-size:20px; padding-top:5px"></i>
+                                    <textarea class="inp" placeholder="Địa chỉ" name="sYourLocation">@item.CVdata.YourLocation</textarea>
+                                </p>
+                            </div>
+                            <!---->
+
+                            <div class="title my-3">
+                                <h5 class="text-white text-center pt-2">KỸ NĂNG</h5>
+                            </div>
+                            <div style="padding-left: 30px">
+                                <p class="text-truncate me-3">
+                                    <input type="text" class="inp" placeholder="Kỹ năng 1" name="sSkill1" value="@item.CVdata.Skill1" />
+                                </p>
+                                <p class="text-truncate me-3">
+                                    <input type="text" class="inp" placeholder="Kỹ năng 2" name="sSkill2" value="@item.CVdata.Skill2" />
+                                </p>
+                            </div>
+
+                        </div>
+                        <!--RIGHT-->
+                        <div class="right" style="width:500px;">
+                            <div class="group" style="background-color: #ffffff; ">
+                                <div class="title my-3">
+                                    <h5 class="text-white text-center pt-2">GIỚI THIỆU</h5>
+                                </div>
+                                <div style="padding-left: 16px">
+                                    <p class="text-truncate me-3">
+                                        <textarea class="inp" placeholder="Giới thiệu" style="min-height: 300px" name="sAboutMe">@item.CVdata.AboutMe</textarea>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="group" style="background-color: #ffffff; ">
+                                <div class="title my-3">
+                                    <h5 class="text-white text-center pt-2">HỌC VẤN</h5>
+                                </div>
+                                <div style="padding-left: 30px">
+                                    <div class="text-truncate me-3">
+                                        <h6>Thời gian</h6>
+                                        <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime" value="@item.CVdata.EducationTime" />
+                                        <span>-  </span>
+                                        <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime2" value="@item.CVdata.EducationTime2" />
+                                        <h6>Nơi đào tạo</h6>
+                                        <p class="text-truncate me-3">
+                                            <input type="text" class="inp" placeholder="Trường học" name="sEducationName" value="@item.CVdata.EducationName" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="margin-bottom: 0px; height: 45px; "></div>
+            <div class="container">
+                @*Tạo liên kết phần trang*@
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+                <div class="MenuTrang border border-primary">
+                    <span>   @Html.PagedListPager(Model, page => Url.Action("LettersDetail", new { page = page }))</span>
+                </div>
+            </div>
+            @*<div class="container mt-3">
+                <a href="@Url.Action("PostsIndex","ManagePosts")" class="" role="button">Quay lại</a>
+            </div>*@
+            <div style="margin-bottom: 0px; height: 25px; "></div>
+        }
+        else
+        {
+            <div class="container" style="min-height: 800px; ">
+                <h2>Chưa có CV ứng tuyển nào</h2>
+                <img src="~/Images/tree.png" />
+            </div>
+        }
+
+    }
+}
+
+
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+        .MenuTrang > span {
+            width: 20px;
+            height: 20px;
+        }
+</style>
+
+

@@ -1,0 +1,247 @@
+﻿@model Jobs.Models.User
+
+@{
+    ViewBag.Title = "uppdate";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+
+@if (TempData["message"] != null)
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["message"]');
+    </script>
+}
+
+
+@using (Html.BeginForm("update", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4 card-pro">
+                    <div class="card-body text-center">
+                        <img src="~/Images/@Model.Avatar" alt="@Model.Name"
+                             id="image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; border: 1px solid #CCC; border-radius: 50%; object-fit:cover">
+                        <h5 class="my-3">@Model.Name</h5>
+                        <p class="text-muted mb-1">@Model.Phone</p>
+                        <p class="text-muted mb-4">@Model.Email</p>
+                        <div class="box-button d-flex justify-content-between align-items-center  mb-3" style="width: 100%;">
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("update","Account")">Tài khoản</a>
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("Index","CV")">CV</a>
+                            <a style="width: 32%; font-size: 13px;" class="btn px-0 py-2" href="@Url.Action("JobsRecument","Account")">Công việc</a>
+
+                            <style>
+                                .box-button > a {
+                                    border-radius: 4px;
+                                    border-color: #4CA6A8;
+                                    font-size: 14px;
+                                    font-weight: 500;
+                                    color: #4CA6A8;
+                                }
+
+                                    .box-button > a:hover {
+                                        background-color: #4CA6A8;
+                                        color: #FFF;
+                                    }
+                            </style>
+                        </div>
+
+                        <a style="width: 100%; border-radius: 4px; border-color: #4CA6A8;  font-size: 14px; font-weight: 500; color: #FFF; background-color: #4CA6A8;" class="btn btn-insert-job" href="#"></a>
+                        <style>
+                            .btn-insert-job:hover {
+                                background-color: #367879 !important;
+                            }
+                        </style>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-8 p-4" style="background-color: #FFF;">
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+
+                    <div class="form-group">
+                        <strong>Họ và tên</strong>
+                        <div class="col-md-11">
+                            <input type="text" size="70" name="sName" value="@Model.Name" class="form-control" required />
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Địa chỉ</strong>
+                        <div class="col-md-11">
+                            <input type="text" size="70" name="sAddress" value="@Model.Address" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        <strong>Địa chỉ</strong>
+                        <div class="col-md-11">
+                            @Html.DropDownListFor(model => model.Address, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Hà Nội", Value = "Hà Nội" },
+                                new SelectListItem { Text = "Hồ Chí Minh", Value = "Hồ Chí Minh" },
+                                new SelectListItem { Text = "An Giang", Value = "An Giang" },
+                                //new SelectListItem { Text = "Bà Rịa – Vũng Tàu", Value = "Bà Rịa – Vũng Tàu" },
+                                //new SelectListItem { Text = "Bạc Liêu", Value = "@Model.Address" },
+                                //new SelectListItem { Text = "Bắc Giang", Value = "Bắc Giang" },
+                                //new SelectListItem { Text = "Bắc Kạn", Value = "Bắc Kạn" },
+                                //new SelectListItem { Text = "Bắc Ninh", Value = "Bắc Ninh" },
+                                //new SelectListItem { Text = "Bến Tre", Value = "Bến Tre" },
+                                //new SelectListItem { Text = "Bình Dương", Value = "Bình Dương" },
+                                //new SelectListItem { Text = "Bình Định", Value = "Bình Định" },
+                                //new SelectListItem { Text = "Bình Phước", Value = "Bình Phước" },
+                                //new SelectListItem { Text = "Bình Thuận", Value = "Bình Thuận" },
+                                //new SelectListItem { Text = "Cao Bằng", Value = "Cao Bằng" },
+                                //new SelectListItem { Text = "Cà Mau", Value = "Cà Mau" },
+                                //new SelectListItem { Text = "Cần Thơ", Value = "Cần Thơ" },
+                                //new SelectListItem { Text = "Hải Phòng", Value = "Hải Phòng" },
+                                //new SelectListItem { Text = "Hải Phòng", Value = "Hải Phòng" },
+                                //new SelectListItem { Text = "Gia Lai", Value = "Gia Lai" },
+                                //new SelectListItem { Text = "Hòa Bình", Value = "Hòa Bình" },
+                                //new SelectListItem { Text = "Hà Giang", Value = "Hà Giang" },
+                                //new SelectListItem { Text = "Hà Nam", Value = "Hà Nam" },
+                                //new SelectListItem { Text = "Hà Tĩnh", Value = "Hà Tĩnh" },
+                                //new SelectListItem { Text = "Hưng Yên", Value = "Hưng Yên" },
+                                //new SelectListItem { Text = "Hải Dương", Value = "Hải Dương" },
+                                //new SelectListItem { Text = "Hậu Giang", Value = "Hậu Giang" },
+                                //new SelectListItem { Text = "Điện Biên", Value = "Điện Biên" },
+                                //new SelectListItem { Text = "Đắk Lắk", Value = "Đắk Lắk" },
+                                //new SelectListItem { Text = "Đắk Nông", Value = "Đắk Nông" },
+                                //new SelectListItem { Text = "Đồng Nai", Value = "Đồng Nai" },
+                                //new SelectListItem { Text = "Đồng Tháp", Value = "Đồng Tháp" },
+                                //new SelectListItem { Text = "Khánh Hòa", Value = "Khánh Hòa" },
+                                //new SelectListItem { Text = "Kiên Giang", Value = "Kiên Giang" },
+                                //new SelectListItem { Text = "Kon Tum", Value = "Kon Tum" },
+                                //new SelectListItem { Text = "Lai Châu", Value = "Lai Châu" },
+                                //new SelectListItem { Text = "Long An", Value = "Long An" },
+                                //new SelectListItem { Text = "Lào Cai", Value = "Lào Cai" },
+                                //new SelectListItem { Text = "Lâm Đồng", Value = "Lâm Đồng" },
+                                //new SelectListItem { Text = "Lạng Sơn", Value = "Lạng Sơn" },
+                                //new SelectListItem { Text = "Nam Định", Value = "Nam Định" },
+                                //new SelectListItem { Text = "Nghệ An", Value = "Nghệ An" },
+                                //new SelectListItem { Text = "Ninh Bình", Value = "Ninh Bình" },
+                                //new SelectListItem { Text = "Ninh Thuận", Value = "Ninh Thuận" },
+                                //new SelectListItem { Text = "Phú Thọ", Value = "Phú Thọ" },
+                                //new SelectListItem { Text = "Phú Yên", Value = "Phú Yên" },
+                                //new SelectListItem { Text = "Quảng Bình", Value = "Quảng Bình" },
+                                //new SelectListItem { Text = "Quảng Nam", Value = "Quảng Nam" },
+                                //new SelectListItem { Text = "Quảng Ngãi", Value = "Quảng Ngãi" },
+                                //new SelectListItem { Text = "Quảng Ninh", Value = "Quảng Ninh" },
+                                //new SelectListItem { Text = "Quảng Trị", Value = "Quảng Trị" },
+                                //new SelectListItem { Text = "Sóc Trăng", Value = "Sóc Trăng" },
+                                //new SelectListItem { Text = "Sơn La", Value = "Sơn La" },
+                                //new SelectListItem { Text = "Thanh Hóa", Value = "Thanh Hóa" },
+                                //new SelectListItem { Text = "Thái Bình", Value = "Thái Bình" },
+                                //new SelectListItem { Text = "Thái Nguyên", Value = "Thái Nguyên" },
+                                //new SelectListItem { Text = "Thừa Thiên – Huế", Value = "Thừa Thiên – Huế" },
+                                //new SelectListItem { Text = "Tiền Giang", Value = "Tiền Giang" },
+                                //new SelectListItem { Text = "Trà Vinh", Value = "Trà Vinh" },
+                                //new SelectListItem { Text = "Tuyên Quang", Value = "Tuyên Quang" },
+                                //new SelectListItem { Text = "Tây Ninh", Value = "Tây Ninh" },
+                                //new SelectListItem { Text = "Vĩnh Long", Value = "Vĩnh Long" },
+                                //new SelectListItem { Text = "Vĩnh Phúc", Value = "Vĩnh Phúc" },
+                                //new SelectListItem { Text = "Yên Bái", Value = "Yên Bái" },
+                            }, "Chọn Tỉnh/TP", new { @class = "form-control", @name = "sAddress" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger", name = "sAddress" })
+                        </div> 
+                    </div>*@
+
+                    <div class="form-group">
+                        <strong>Email</strong>
+                        <div class="col-md-11">
+                            <input type="text" size="70" name="sEmail" value="@Model.Email" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Số điện thoại</strong>
+                        <div class="col-md-11">
+                            <input type="text" size="70" name="sPhone" value="@Model.Phone" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        <p>Mật khẩu</p>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" value="@Model.Avatar" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                    *@
+
+                    <div class="form-group">
+                        <strong>Ảnh đại diện</strong>
+                        <div class="col-md-11">
+                            @*<input type="text" size="70" value="@Model.Avatar" class="form-control" />*@
+                            <input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" class="form-control" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Lưu thay đổi" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="@Url.Action("Index","Jobs")" class="" role="button">Quay lại trang chủ</a>
+        </div>
+    </div>
+</section>
+    
+}
+
+<style>
+    .form-group {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding-left: 50px;
+    }
+
+    .form-control {
+        border-bottom: 1px solid #EEE !important;
+        font-size: 16px;
+    }
+
+    .card-pro{
+        background-color: #ffffff !important;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+</style>

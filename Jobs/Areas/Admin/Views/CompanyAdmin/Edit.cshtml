@@ -1,0 +1,103 @@
+﻿@model Jobs.Models.Company
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Chỉnh sửa thông tin</strong></h1>
+        </div>
+    </div>
+</div>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Tên công ty</strong></label>
+            <div class="col-md-10">
+                <input type="text" size="110" name="Name" value="@Model.Name" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Đường dẫn trang</strong></label>
+            <div class="col-md-10">
+                <input type="text" size="110" name="LinkPage" value="@Model.LinkPage" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mô tả:</label>
+            <div class="col-md-10">
+                <textarea name="Description" id="mota">@Model.Description</textarea>
+                <script>CKEDITOR.replace('mota');</script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Địa chỉ</strong></label>
+            <div class="col-md-10">
+                <input type="text" size="110" name="Location" value="@Model.Location" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Ảnh đại diện</strong></label>
+            <div class="col-md-10">
+                <img src="~/Images/@Model.Avatar" style="width:80px; height: 80px; border-radius: 50%;"><br />(Ảnh hiện tại)<br />
+                <input type="file" name="avatar" />
+                @*Thông báo lỗi yêu cầu phải chọn ảnh bìa*@
+                @ViewBag.ThongBao
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Ảnh bìa</strong></label>
+            <div class="col-md-10">
+                <img src="~/Images/@Model.Background" style="width:80px; height: 60px;"><br />(Ảnh hiện tại)<br />
+                <input type="file" name="background" />
+                @*Thông báo lỗi yêu cầu phải chọn ảnh bìa*@
+                @ViewBag.ThongBao
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Nhân sự</strong></label>
+            <div class="col-md-10">
+                <input type="text" size="25" name="Employees" value="@Model.Employees" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Ngày tạo</strong></label>
+            <div class="col-md-10">
+                <input type="date" name="CreatedDate" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"><strong>Ngày chỉnh sửa</strong></label>
+            <div class="col-md-10">
+                <input type="date" name="ModifiedDate" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-primary" /> < >
+                <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+            </div>
+        </div>
+
+    </div>
+}

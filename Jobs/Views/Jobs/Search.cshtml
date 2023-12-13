@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Jobs.Models.ListJobUser>
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .card {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+        .card > a {
+            text-decoration: none;
+        }
+
+        .card:hover {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+    .card-logo {
+        height: 130px;
+        width: 190px;
+    }
+
+        .card-logo > img {
+            object-fit: cover;
+            padding: 40px;
+            margin: auto;
+            display: block;
+        }
+
+    .card-text {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .flex {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .logo {
+        vertical-align: middle;
+    }
+
+        .logo > img {
+            object-fit: cover;
+            margin-top: 16px;
+            width: 70px;
+            height: 40px;
+        }
+
+    .job-item {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    }
+
+        .job-item:hover {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+    .item-content > a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .btn-apply {
+        background-color: #009ACD;
+    }
+</style>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3 py-5">
+            @Html.Action("ListCareerPartial", "Jobs")
+        </div>
+        <div class="col-md-9">
+            @*a*@
+            <div class="container py-5" style="min-height: 760px; ">
+                <h3 style="text-align:center;">DANH SÁCH CÔNG VIỆC</h3>
+                <div class="container">
+
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="row job-item py-2 my-3">
+                            <div class="col-md-1 logo">
+                                <img src="~/Images/@item.avatar" alt="..." />
+                            </div>
+                            <div class="col-md-8 item-content">
+                                <a href="@Url.Action("Index","JobsUser", new { id = item.id})" style="font-weight: 700; font-size: 16px;" class="m-0">@item.nameJob</a>
+                                <br />
+                                <a href="@Url.Action("Index","JobsUser", new { id = item.id})" style="text-decoration: underline; font-size: 14px;">@item.name</a>
+                                <div class="item-content-property">
+                                    <span class="text-truncate me-3">
+                                        <i class="fa-solid fa-location-dot" style="vertical-align:middle;"></i>
+                                        @item.location
+                                    </span>
+                                    <span class="mx-2">|</span>
+                                    <span class="text-truncate me-3">
+                                        <i class='bx bx-book-content' style="vertical-align:middle; font-size:20px;"></i>
+                                        @item.typeJob
+                                    </span>
+                                    <span class="mx-2">|</span>
+                                    <span class="text-truncate me-3">
+                                        <i class='bx bx-money-withdraw' style="vertical-align: middle; font-size: 20px;"></i>
+                                        @*@item.salaryMin - @item.salaryMaX*@
+                                        @if ((item.salaryMin != null) && (item.salaryMaX != null))
+                                        {
+                                            <span>@item.salaryMin - @item.salaryMaX</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Thương lượng</span>
+                                        }
+                                    </span>
+                                    @*<span class="mx-2">|</span>
+                                        <span class="text-truncate me-3">
+                                            <i class='bx bx-time-five' style="vertical-align: middle; font-size: 20px;"></i>
+                                            15 phút trước
+                                        </span>*@
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-flex flex-column align-items-start align-items-md-end justify-content-center box-action">
+                                    <div class="flex">
+                                        @*<a class="btn btn-light btn-square me-3 btn-save" href="#"><i class="far fa-heart text-primary" style="color:red;"></i></a>*@
+                                        <a class="btn btn-info btn-apply text-white" href="@Url.Action("Index","JobsUser", new { id = item.id})">Ứng tuyển ngay</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

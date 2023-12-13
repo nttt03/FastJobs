@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Jobs.Models.JobUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/ckeditor/ckeditor.js"></script>
+<style>
+    .logo {
+        vertical-align: middle;
+    }
+
+        .logo > img {
+            object-fit: cover;
+            margin-top: 16px;
+            width: 100px;
+            height: 70px;
+        }
+</style>
+@if (TempData["message2"] != null)
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["message2"]');
+        //toastr.Top-Center;
+
+    </script>
+}
+
+
+@foreach (var item in Model)
+{
+    <div class="container-fluid" style="background-color: #ffffff; margin-top:0px;">
+        <div class="container">
+
+            <div class="row job-item ">
+                <div class="col-md-1 logo py-5">
+                    <img src="~/Images/@item.companydata.Avatar" alt="..." />
+                </div>
+                <div class="col-md-9 item-content py-5 ps-5">
+                    <h5 style="font-weight: 700;" class="mb-3">@item.jobdata.Name</h5>
+
+                    <h5 style="text-decoration: underline; font-size: 14px;">@item.companydata.Name</h5>
+                    <div class="item-content-property">
+                        <span class="text-truncate me-3">
+                            <i class="fa-solid fa-location-dot" style="vertical-align:middle;"></i>
+                            @item.jobdata.WorkLocation
+                        </span>
+                        @*<span class="mx-2">|</span>
+                        <span class="text-truncate me-3">
+                            <i class='bx bx-time-five' style="vertical-align: middle; font-size: 20px;"></i>
+                            15 phút trước
+                        </span>*@
+                    </div>
+                </div>
+                <div class="col-md-2 logo py-5">
+                    @*<a href="#" class="btn btn-primary" role="button">Ứng tuyển ngay</a>*@
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid" style="background-color: #E2E1E1;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-7" style="background-color: #ffffff; margin-top:20px; border-radius:10px; padding:16px; ">
+                    <h5>Mô tả</h5>
+                    <p style="text-align:justify">@Html.Raw(item.jobdata.Description.ToString().Replace("\n", "</p><p>"))</p>
+                </div>
+                <div class="col-sm-12 col-md-4" style="background-color: #ffffff; margin-top: 20px; margin-left: 20px; border-radius: 10px; height: 200px; padding: 16px; ">
+                    <h5>Tổng quan</h5>
+                    <p class="text-truncate me-3">
+                        <i class="fa-regular fa-pen-to-square" style="vertical-align:middle;"></i>
+                        @item.jobdata.Experience năm kinh nghiệm
+                    </p>
+                    <p class="text-truncate me-3">
+                        <i class="fa-solid fa-venus-mars" style="vertical-align:middle;"></i>
+                        Giới tính: @item.jobdata.Gender
+                    </p>
+                    <p class="text-truncate me-3">
+                        <i class='bx bx-book-content' style="vertical-align:middle; font-size:20px;"></i>
+                        @item.jobcategorydata.TypeJob
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-7" style="background-color: #ffffff; margin-top: 20px; margin-bottom: 60px; border-radius: 10px; padding: 16px; ">
+                    <h5>Yêu cầu</h5>
+                    <p style="text-align:justify">@Html.Raw(item.jobdata.RequestCandidate.ToString().Replace("\n", "</p><p>"))</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+
+                </div>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Apply", "JobsUser", new { id = item.jobdata.ID }, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-11" style="background-color: #ffffff; margin-bottom: 60px; border-radius: 10px; padding: 16px 80px 16px 80px; ">
+                        <h2 class="text-center">ỨNG TUYỂN</h2>
+                        <div style="width:218px; height:3px; border-radius: 2px; background-color: #3146e8; margin-left:40%"></div>
+                        @*<a href="#" class="text-descoration-none" style="">Ứng tuyển bằng CV </a>*@
+                        <label><input type="checkbox" name="checkbox" value="" />  Ứng tuyển bằng CV (Khuyên dùng)</label>
+                        <p style="color:#ff0000; font-style:italic; ">@ViewBag.Thongbao</p>
+                        <br /><br />
+                        <strong>Thư giới thiệu</strong>
+                        <textarea name="sLetter" id="mota" style="width:100%; min-height:100px; padding:10px" placeholder="Giới thiệu ngắn gọn về bản thân (điểm mạnh, điểm yếu) nêu mong muốn và lý lo làm việc tại công ty này. Đây là cách gây ấn tượng với nhà tuyển dụng nếu bạn chưa có kinh nghiệm làm việc (hoặc CV không tốt)"></textarea>
+                        <script>CKEDITOR.replace('mota');</script>
+                        <div class="col-md-offset-2 col-md-10" style="margin-left:45%; margin-top:26px; margin-bottom:30px">
+                            <input type="submit" value="Nộp hồ sơ" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+
+
+}
+

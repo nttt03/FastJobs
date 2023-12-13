@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FastJobs" Class="dbFastJobsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=Admin-PC;Initial Catalog=FastJobs;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FastJobsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ADMIN" Member="ADMINs">
+    <Type Name="ADMIN">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Career" Member="Careers">
+    <Type Name="Career">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Descriptions" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="JobCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Career_Job" Member="Jobs" ThisKey="ID" OtherKey="CareerID" Type="Job" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Company" Member="Companies">
+    <Type Name="Company">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LinkPage" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Background" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Employees" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ViewCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Company_Employer" Member="Employers" ThisKey="ID" OtherKey="IDCompany" Type="Employer" />
+      <Association Name="Company_EmployerCreatedCompany" Member="EmployerCreatedCompanies" ThisKey="ID" OtherKey="CompanyID" Type="EmployerCreatedCompany" />
+      <Association Name="Company_Job" Member="Jobs" ThisKey="ID" OtherKey="CompanyID" Type="Job" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CV" Member="CVs">
+    <Type Name="CV">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AboutMe" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="YourLocation" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Gmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FaceBook" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EducationName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="EducationTime" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="EducationName2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="EducationTime2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="WorkExperienceInfor1" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="WorkExperienceInfor2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="WorkExperienceTime1" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="WorkExperienceTime2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Skill1" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Skill2" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="CV_Recument" Member="Recuments" ThisKey="ID" OtherKey="CVID" Type="Recument" />
+      <Association Name="User_CV" Member="User" ThisKey="IDUser" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employer" Member="Employers">
+    <Type Name="Employer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IDCompany" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Employer_EmployerCreatedCompany" Member="EmployerCreatedCompanies" ThisKey="ID" OtherKey="EmployerID" Type="EmployerCreatedCompany" />
+      <Association Name="Employer_EmployerCreatedJob" Member="EmployerCreatedJobs" ThisKey="ID" OtherKey="EmployerID" Type="EmployerCreatedJob" />
+      <Association Name="Company_Employer" Member="Company" ThisKey="IDCompany" OtherKey="ID" Type="Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmployerCreatedCompany" Member="EmployerCreatedCompanies">
+    <Type Name="EmployerCreatedCompany">
+      <Column Name="EmployerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Company_EmployerCreatedCompany" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
+      <Association Name="Employer_EmployerCreatedCompany" Member="Employer" ThisKey="EmployerID" OtherKey="ID" Type="Employer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmployerCreatedJob" Member="EmployerCreatedJobs">
+    <Type Name="EmployerCreatedJob">
+      <Column Name="EmployerID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="JobID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Employer_EmployerCreatedJob" Member="Employer" ThisKey="EmployerID" OtherKey="ID" Type="Employer" IsForeignKey="true" />
+      <Association Name="Job_EmployerCreatedJob" Member="Job" ThisKey="JobID" OtherKey="ID" Type="Job" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Experience" Member="Experiences">
+    <Type Name="Experience">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MonthBegin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearBegin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MonthEnd" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearEnd" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Experience" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Job" Member="Jobs">
+    <Type Name="Job">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="RequestCandidate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="SalaryMin" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="SalaryMax" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Details" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Deadline" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Rank" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Experience" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="WorkLocation" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecumentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CareerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Job_EmployerCreatedJob" Member="EmployerCreatedJobs" ThisKey="ID" OtherKey="JobID" Type="EmployerCreatedJob" />
+      <Association Name="Job_Recument" Member="Recuments" ThisKey="ID" OtherKey="JobID" Type="Recument" />
+      <Association Name="Career_Job" Member="Career" ThisKey="CareerID" OtherKey="ID" Type="Career" IsForeignKey="true" />
+      <Association Name="Company_Job" Member="Company" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
+      <Association Name="JobCategory_Job" Member="JobCategory" ThisKey="CategoryID" OtherKey="ID" Type="JobCategory" IsForeignKey="true" />
+      <Association Name="Recument_Job" Member="Recument" ThisKey="RecumentID" OtherKey="ID" Type="Recument" IsForeignKey="true" />
+      <Association Name="User_Job" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JobCategory" Member="JobCategories">
+    <Type Name="JobCategory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeJob" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="JobCategory_Job" Member="Jobs" ThisKey="ID" OtherKey="CategoryID" Type="Job" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recument" Member="Recuments">
+    <Type Name="Recument">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LetterInfo" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="JobID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CVID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Recument_Job" Member="Jobs" ThisKey="ID" OtherKey="RecumentID" Type="Job" />
+      <Association Name="CV_Recument" Member="CV" ThisKey="CVID" OtherKey="ID" Type="CV" IsForeignKey="true" />
+      <Association Name="Job_Recument" Member="Job" ThisKey="JobID" OtherKey="ID" Type="Job" IsForeignKey="true" />
+      <Association Name="User_Recument" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Skill" Member="Skills">
+    <Type Name="Skill">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameSkill" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Assessment" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Skill" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="DayOfBirth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MonthOfBirth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearOfBirth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_CV" Member="CVs" ThisKey="ID" OtherKey="IDUser" Type="CV" />
+      <Association Name="User_Experience" Member="Experiences" ThisKey="ID" OtherKey="UserID" Type="Experience" />
+      <Association Name="User_Job" Member="Jobs" ThisKey="ID" OtherKey="UserID" Type="Job" />
+      <Association Name="User_Recument" Member="Recuments" ThisKey="ID" OtherKey="UserID" Type="Recument" />
+      <Association Name="User_Skill" Member="Skills" ThisKey="ID" OtherKey="UserID" Type="Skill" />
+    </Type>
+  </Table>
+</Database>

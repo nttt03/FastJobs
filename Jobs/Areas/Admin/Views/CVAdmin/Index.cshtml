@@ -1,0 +1,43 @@
+﻿@using Jobs.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Jobs.Models.CV>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Scripts{
+    <script src="~/Areas/Admin/Content/js/jquery-3.3.1.min.js"></script>""
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('fast');
+        }, 2000);
+    </script>
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1 style="text-align:center"><strong>QUẢN LÝ ĐƠN ỨNG TUYỂN</strong></h1>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get, new { @class = "navbar-search" })) { }
+
+<div class="row text-center">
+    @foreach (var cv in Model)
+    {
+        <div class="col-sm-2 col-sm-2 col-xs-6">
+            <div class="thumbnail">
+               <img src="~/Images/@cv.Avatar" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook" style="width: 130px; height: 150px;">
+               <div class="caption">
+                    <h5 style="min-height:70px;">
+                        <a href="@Url.Action("Details","CVAdmin", new { id = cv.ID})">@cv.Name</a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    }
+</div>

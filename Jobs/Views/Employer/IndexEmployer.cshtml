@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Employer";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<section>
+    <div class="container" style="margin-top:50px">
+        <h3 class="text-center">CÁC TÍNH NĂNG</h3>
+        <div class="row text-center">
+            <div class="col-md-4 box-content" style="display:inline-block">
+                <p class="icon border border-primary"><i class="fa fa-bullhorn fa-2x text-primary"></i></p>
+                <p style="font-size:18px">Đăng tuyển miễn phí</p>
+                <p>Nếu bạn là nhà tuyển dụng thì nên biết: FastJobs là công cụ đăng tin tuyển dụng dễ dàng và hoàn toàn miễn phí</p>
+            </div>
+            <div class="col-md-4 box-content">
+                <p class="icon border border-primary"><i class="fa fa-list-alt fa-2x text-primary"></i></p>
+                <p>Kênh việc làm</p>
+                <p>FastJobs đang nỗ lực để trở thành kênh việc làm hàng đầu tại Việt Nam, giúp kết nối Ứng viên và Nhà tuyển dụng nhanh và hiệu quả nhất</p>
+            </div>
+            <div class="col-md-4 box-content">
+                <p class="icon border border-primary"><i class="fa fa-info fa-2x text-primary"></i></p>
+                <p>Thống kê số liệu</p>
+                <p>Với số liệu sẽ được cập nhật liên tục. Giúp cho người dùng dễ dàng theo dõi việc đã đăng và lượng người ứng tuyển</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div style="position:absolute; padding-top:60px; color:orangered; width:560px; padding:50px">
+        <h3>FastJobs nơi gặp gỡ giữa các doanh nghiệp và hoàng loạt các ứng viên chất lượng</h3>
+        <p style="font-style:italic">Tuyển dụng dễ dàng với FastJobs</p>
+    </div>
+
+    <img src="~/Images/TuyenDung/banner.png" class="w-100" style="height:400px" alt="..." />
+</div>
+
+@section slider{
+    @Html.Action("SliderPartial", "Employer")
+}
+

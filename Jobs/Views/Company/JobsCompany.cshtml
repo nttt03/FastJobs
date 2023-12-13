@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Jobs.Models.JobUser>
+
+@foreach (var item in Model)
+{
+    <div class="container py-5">
+        <h3 style="text-align:center;">CÁC VỊ TRÍ TUYỂN DỤNG</h3>
+        <div class="container">
+            <div class="row job-item py-2 my-3">
+                <div class="col-md-1 logo">
+                    <img src="~/Images/@item.companydata.Avatar" alt="..." />
+                </div>
+                <div class="col-md-8 item-content">
+                    <a href="@Url.Action("Index","JobsUser", new { id = item.jobdata.ID})" style="font-weight: 700; font-size: 16px;" class="m-0">@item.jobdata.Name</a>
+                    <br />
+                    <a href="#" style="text-decoration: underline; font-size: 14px;">@item.companydata.Name</a>
+                    <div class="item-content-property">
+                        <span class="text-truncate me-3">
+                            <i class="fa-solid fa-location-dot" style="vertical-align:middle;"></i>
+                            @item.companydata.Location
+                        </span>
+                        <span class="mx-2">|</span>
+                        <span class="text-truncate me-3">
+                            <i class='bx bx-book-content' style="vertical-align:middle; font-size:20px;"></i>
+                            @item.jobcategorydata.TypeJob
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="d-flex flex-column align-items-start align-items-md-end justify-content-center box-action">
+                        <div class="flex">
+                            <a class="btn btn-light btn-square me-3 btn-save" href="#"><i class="far fa-heart text-primary" style="color:red;"></i></a>
+                            <a class="btn btn-info btn-apply text-white" href="#">Ứng tuyển ngay</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+

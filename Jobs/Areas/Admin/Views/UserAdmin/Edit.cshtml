@@ -1,0 +1,95 @@
+﻿@model Jobs.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Chỉnh sửa thông tin</strong></h1>
+        </div>
+    </div>
+</div>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Tên đăng nhập</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="UserName" value="@Model.UserName" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Mật khẩu</strong></label>
+        <div class="col-md-10">
+            <input type="password" size="110" name="Password" value="@Model.Password" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Họ tên</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Name" value="@Model.Name" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Địa chỉ</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Address" value="@Model.Address" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Email</strong></label>
+        <div class="col-md-10">
+            <input type="email" size="110" name="Email" value="@Model.Email" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Số điện thoại</strong></label>
+        <div class="col-md-10">
+            <input type="text" size="110" name="Phone" value="@Model.Phone" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ảnh đại diện</strong></label>
+        <div class="col-md-10">
+            <img src="~/Images/@Model.Avatar" style="width:80px; height: 80px; border-radius: 50%;"><br />(Ảnh hiện tại)<br />
+            <input type="file" name="fFileUpload" />
+            @ViewBag.ThongBao
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày tạo</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="CreatedDate" required/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2"><strong>Ngày chỉnh sửa</strong></label>
+        <div class="col-md-10">
+            <input type="date" name="ModifiedDate"required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-primary" />  < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    </div>
+</div>
+}

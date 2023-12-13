@@ -1,0 +1,129 @@
+﻿<!--#001D55-->
+<style>
+    :root {
+        --primary-colors: #063389;
+    }
+</style>
+
+<div class="fixed-top">
+    
+    <section class="myHeader">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-md-2">
+                    <a class="navbar-brand" href="#"><img src="~/Images/Fj_logo_bg.png" height="55" /></a>
+                </div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm("Search", "Jobs", FormMethod.Get, new { @enctype = "multipart/form-data" }))
+                    {
+                        <div class="input-group mb-3">
+                            <input type="text" name="searchKey" class="form-control" placeholder="Nhập tên công việc ...." aria-label="Nhập từ khoá tìm kiếm ...." aria-describedby="basic-addon2">
+                            @*<span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>*@
+                            <button class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    }
+                    <!--<form asp-action="Search" method="get">
+                        <div class="input-group mb-3">
+                            <input type="text" name="searchKey" class="form-control" placeholder="Nhập tên công việc ...." aria-label="Nhập từ khoá tìm kiếm ...." aria-describedby="basic-addon2">-->
+                            @*<span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>*@
+                            <!--<button class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>-->
+
+                </div>
+
+                <div class="col-md-3 navbar-right">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="fs-4"><i class="fa-solid fa-phone-volume"></i></div>
+                                </div>
+                                <div class="col-9">
+                                    Tư vấn<br />
+                                    <strong class="text-danger">0987654321</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            @Html.Action("LoginLogoutPartial", "Jobs")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="@Url.Action("IndexEmployer","Employer")" class="btn btn-primary" role="button">Nhà tuyển dụng</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--MyHeader #009ACD-->
+
+    <section class="myMenu" style="background-color:var(--primary-colors)">
+        <div class="container">
+            <div class="row">
+                <div class="col-3 py-3">
+                    <div class="row text-white">
+                        <div class="col-1"><i class="fa-solid fa-bars"></i></div>
+                        <!--<div class="col-10">Danh mục nghề nghiệp</div>-->
+                        <div class="col-10 dropdown">
+                            <div class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Danh mục nghề nghiệp
+                            </div>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                @*@Html.Action("CareerPartial", "Jobs")*@
+                            </ul>
+                            
+
+                            @*<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>*@
+                        </div>
+                        <div class="col-1">|</div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <!--<div class="d-flex">
+                        <div class="flex-fill">
+                            <a class="nav-link text-white active" aria-current="page" href="#">Trang chủ</a>
+                        </div>
+                        <div class="flex-fill">
+                            <a class="nav-link text-white" href="#">Giới thiệu</a>
+                        </div>
+                        <div class="flex-fill">
+                            <a class="nav-link text-white" href="#">Công cụ</a>
+                        </div>
+                        <div class="flex-fill">
+                            <a class="nav-link text-white" href="#">Liên hệ</a>
+                        </div>
+                    </div>-->
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link hover_underline" aria-current="page" href="@Url.Action("Index","Jobs")">TRANG CHỦ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link hover_underline" href="@Url.Action("Index","Company")">CÔNG TY</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link hover_underline" href="@Url.Action("Index","CV")">TẠO CV</a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                        <a class="nav-link hover_underline" href="#">LIÊN HỆ</a>
+                                    </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

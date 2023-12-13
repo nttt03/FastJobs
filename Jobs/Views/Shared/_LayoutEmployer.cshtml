@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    <style>
+        :root {
+            --primary-color: #001D55;
+        }
+
+        .logo {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 40px;
+            color: white;
+        }
+
+            .logo:hover {
+                color: chartreuse;
+            }
+
+        .nav-item > a:hover {
+            color: coral;
+        }
+
+        .nav-item > a {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            color: white;
+        }
+
+        .banner {
+            object-fit: cover;
+            height: 650px;
+        }
+
+        .fixed-top {
+            position: fixed;
+            top: 0;
+        }
+
+        .icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: white;
+        }
+
+        .box-content:hover {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .icon > i {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            padding-top: 15px;
+        }
+
+        .navbar-toggler {
+            color: white;
+        }
+
+        .navbar-toggler-icon {
+            color: white;
+        }
+
+        .box-icon {
+        }
+    </style>
+</head>
+<!-- <img src="~/Images/Fj_logo_bg.png" class="logo w-100" alt="logo" /> -->
+
+<body>
+    @Html.Action("NavPartial", "Employer")
+
+    <div>
+        @RenderSection("Slider", required: false)
+        @RenderBody()
+    </div>
+    @Html.Action("FooterPartial", "Jobs")
+</body>
+</html>

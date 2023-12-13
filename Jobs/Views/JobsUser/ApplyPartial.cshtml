@@ -1,0 +1,24 @@
+﻿@model Jobs.Models.Recument
+
+@using (Html.BeginForm("ApplyPartial", "JobsUser", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-11" style="background-color: #ffffff; margin-bottom: 60px; border-radius: 10px; padding: 16px 80px 16px 80px; ">
+                <h2 class="text-center">ỨNG TUYỂN</h2>
+                <div style="width:218px; height:3px; border-radius: 2px; background-color: #3146e8; margin-left:40%"></div>
+                @*<a href="#" class="text-descoration-none" style="">Ứng tuyển bằng CV </a>*@
+                <label><input type="checkbox" name="checkbox" value="" />  Ứng tuyển bằng CV (Khuyên dùng)</label>
+                <p style="color:#ff0000; font-style:italic; ">@ViewBag.Thongbao</p>
+                <br /><br />
+                <strong>Thư giới thiệu</strong>
+                <textarea name="sLetter" style="width:100%; min-height:100px; padding:10px" placeholder="Giới thiệu ngắn gọn về bản thân (điểm mạnh, điểm yếu) nêu mong muốn và lý lo làm việc tại công ty này. Đây là cách gây ấn tượng với nhà tuyển dụng nếu bạn chưa có kinh nghiệm làm việc (hoặc CV không tốt)"></textarea>
+                <div class="col-md-offset-2 col-md-10" style="margin-left:45%; margin-top:26px; margin-bottom:30px">
+                    <input type="submit" value="Nộp hồ sơ" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

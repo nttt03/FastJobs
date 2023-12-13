@@ -1,0 +1,246 @@
+﻿@*@model IEnumerable<Jobs.Models.JobUser>*@
+@model Jobs.Models.Job
+@using Jobs.Models
+
+@{
+    ViewBag.Title = "CreateJobs";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+@if (TempData["message"] != null)
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["message"]');
+    </script>
+}
+
+<script>
+    function salaryChange(element) {
+        if (element.value === "True") {
+            $("#salary-min-max").css("display", "block");
+        } else {
+            $("#salary-min-max").css("display", "none");
+        }
+    }
+</script>
+
+@{
+    Employer emp = (Employer)Session["AccountEmployer"];
+    if (emp != null && emp.IDCompany == null)
+    {
+        ViewBag.ThongBao = "Vui lòng tạo công ty trước khi đăng tin tuyển dụng";
+    <div class="container" style="background-color: #ffffff; margin-top:8%; min-height:800px; ">
+        <h2 class="text-center">@ViewBag.ThongBao</h2>
+        <div class="text-center"><img class="text-center" src="~/Images/cty.jpg" /></div>
+        <div class="form-group text-center mb-3" style="margin-bottom:20px">
+            <a href="@Url.Action("CreateCompany", "Employer")" class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo công ty" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+            </a>
+        </div>
+    </div>
+    }
+    else
+    {
+        using (Html.BeginForm("CreateJobs", "Employer", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="container-fluid" style="background-color: #eee; margin-top:3%">
+                @Html.AntiForgeryToken()
+                <div class="container" style="padding-top: 6%;">
+                    <div class="form-group" style="">
+                        <div class="col-md-offset-2 col-md-10" style="display: flex; ">
+                            @*<h2>@ViewBag.ThongBao</h2>*@
+                            <a href="@Url.Action("PostsIndex", "ManagePosts")" style="text-decoration: none; font-size: 22px; margin-right: 16px">Bài đăng</a>
+                            <a href="@Url.Action("CreateJobs", "Employer")" style="text-decoration: none; font-size: 22px; ">Đăng tuyển</a>
+                            @*<input type="submit" value="Đăng tuyển" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />*@
+                        </div>
+                    </div>
+                </div>
+                <div class="container py-5" style="background-color: #ffffff; padding-top:30px">
+                    <div class="form-horizontal">
+                        <h4 class="text-center">ĐĂNG TUYỂN</h4>
+                        <h2 class="text-center">@ViewBag.Success</h2>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @*<div class="form-group">
+                                <strong>Chọn công ty</strong>
+                                <div class="col-md-11">
+                                    @if (ViewBag.CompanyID != null)
+                                    {
+                                        @Html.DropDownList("CompanyID", (SelectList)ViewBag.CompanyID, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownList("CompanyID", null, new { @class = "form-control" })
+
+                                    }
+
+                                </div>
+                            </div>*@
+
+                        <div class="form-group ">
+                            <strong>Tên công việc</strong>
+                            <div class="col-md-11 text-center">
+                                <input type="text" size="70" name="sName" value="" class="form-control" required />
+                                @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Mô tả công việc</strong>
+                            <div class="col-md-11">
+                                <textarea name="sDescription" id="mota">@ViewBag.Description</textarea>
+                                <script>CKEDITOR.replace('mota');</script>
+                                @*@Html.ValidationMessageFor(model => model.jobdata.Description, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Yêu cầu ứng viên</strong>
+                            <div class="col-md-11">
+                                <textarea name="sRequestCandidate" id="Request">@ViewBag.RequestCandidate</textarea>
+                                <script>CKEDITOR.replace('Request');</script>
+                                @*@Html.ValidationMessageFor(model => model.jobdata.Description, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Cách thức ứng tuyển</strong>
+                            <div class="col-md-11">
+                                <textarea name="sDetails" id="Details">@ViewBag.Details</textarea>
+                                <script>CKEDITOR.replace('Details');</script>
+                                @*@Html.ValidationMessageFor(model => model.jobdata.Description, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <strong>Mức lương</strong>
+                                <div class="col-md-11">
+                                    @Html.DropDownListFor(model => model.Salary, new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "Thương lượng", Value = "False" },
+                                        new SelectListItem { Text = "Nhập giá trị cụ thể", Value = "True" }
+                                    }, "Value", "Text"), new { @class = "form-control", onchange = "salaryChange(this)" })
+                                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+
+                        <div class="form-group" id="salary-min-max">
+                            <strong>Mức lương tối thiểu</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="dSalaryMin" value="" class="form-control" required />
+                                @*@Html.TextBoxFor(model => model.SalaryMin, new { @class = "form-control", })*@
+                                @Html.ValidationMessageFor(model => model.SalaryMin, "", new { @class = "text-danger" })
+                            </div>
+                            <strong>Mức lương tối đa</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="dSalaryMax" value="" class="form-control" required />
+                                @*@Html.TextBoxFor(model => model.SalaryMax, new { @class = "form-control", })*@
+                                @Html.ValidationMessageFor(model => model.SalaryMax, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Chọn danh mục công việc</strong>
+                            <div class="col-md-11">
+                                @if (ViewBag.CategoryID != null)
+                                {
+                                    @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("CategoryID", null, new { @class = "form-control" })
+
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Chọn danh mục ngành nghề</strong>
+                            <div class="col-md-11">
+                                @if (ViewBag.CareerID != null)
+                                {
+                                    @Html.DropDownList("CareerID", (SelectList)ViewBag.CareerID, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("CareerID", null, new { @class = "form-control" })
+
+                                }
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <strong>Hạn nộp hồ sơ</strong>
+                                <div class="col-md-11">
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Deadline, new { @class = "form-control" })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+
+                        <div class="form-group">
+                            <strong>Năm kinh nghiệm</strong>
+                            <div class="col-md-11">
+                                <input type="text" min="0" , max="100" size="70" name="sExperience" value="" class="form-control" required />
+                                @*@Html.TextBoxFor(model => model.Experience, new { @class = "form-control", type = "number", min = "0", max = "100" })*@
+                                @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Giới tính</strong>
+                            <div class="col-md-11">
+                                @Html.DropDownListFor(model => model.Gender, new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Nam", Value = "Nam" },
+                                    new SelectListItem { Text = "Nữ", Value = "Nữ" },
+                                    new SelectListItem { Text = "Tất cả", Value = "Tất cả" }
+                                }, "Chọn giới tính", new { @class = "form-control", @name = "sGender" })
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger", name = "sGender" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Địa điểm làm việc</strong>
+                            <div class="col-md-11">
+                                <input type="text" size="70" name="sWorkLocation" value="" class="form-control" required />
+                                @*@Html.TextBoxFor(model => model.WorkLocation, new { @class = "form-control", name = "sWorkLocation" })*@
+                                @Html.ValidationMessageFor(model => model.WorkLocation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-11 text-center">
+                                <input type="submit" value="Hoàn tất" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit;" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <style>
+            .form-group {
+                margin-top: 10px;
+                margin-bottom: 20px;
+                padding-left: 50px;
+            }
+
+            .form-control {
+                border-bottom: 1px solid #EEE !important;
+                font-size: 16px;
+            }
+        </style>
+    }
+}
+

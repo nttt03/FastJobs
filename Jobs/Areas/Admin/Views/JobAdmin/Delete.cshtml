@@ -1,0 +1,110 @@
+﻿@model Jobs.Models.Job
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row column_title">
+    <div class="col-md-12">
+        <div class="page_title">
+            <h1><strong>Xóa Công việc</strong></h1>
+        </div>
+    </div>
+</div>
+
+<h3 style="color: red">Bạn chắc chắn muốn xóa công việc này?</h3>
+<h4 style="color: red; font-style: italic">@Html.Raw(ViewBag.ThongBao)</h4>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Tên công việc</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>Mô tả</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>Yêu cầu</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestCandidate)
+        </dd>
+
+        <dt>Ảnh</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>Lương tối thiểu</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaryMin)
+        </dd>
+
+        <dt>Lương tối đa </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalaryMax)
+        </dd>
+
+        <dt>Hạn nộp</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+
+        <dt>Chức vụ</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rank)
+        </dd>
+
+        <dt>Giới tính</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>Kinh nghiệm</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+
+        <dt>Địa chỉ</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkLocation)
+        </dd>
+
+        <dt>Ngày tạo</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>Ngày chỉnh sửa</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />  < >
+            <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+        </div>
+    }
+</div>

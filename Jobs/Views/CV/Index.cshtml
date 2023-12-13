@@ -1,0 +1,228 @@
+﻿
+@model Jobs.Models.CV
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+<!--#04571c-->
+<style>
+    :root {
+        --color-cv: #006666;
+    }
+
+    .head {
+        background-color: var(--color-cv);
+        padding: 10px;
+    }
+
+    .avatar-container {
+        background-color: #ffffff;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        margin-left: 10px;
+    }
+
+    .avatar {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-left: 158px;
+        padding: 8px;
+    }
+
+    .nameUser {
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 40px;
+        color: #ffffff;
+        min-width: 500px;
+    }
+
+        .nameUser:focus {
+            outline: none;
+        }
+
+    .jobUser:focus {
+        outline: none;
+    }
+
+    .jobUser {
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 22px;
+        color: #ffffff;
+        min-width: 500px;
+    }
+
+    ::placeholder {
+        color: #808080;
+        opacity: 0.9;
+    }
+
+    .inp {
+        background-color: #ffffff;
+        border: none;
+        font-size: 18px;
+        color: #000000;
+        width: 400px;
+    }
+
+        .inp:focus {
+            outline: none;
+        }
+
+    .containerCV {
+        width: 1050px;
+        text-align: center;
+        left: 50%;
+    }
+
+    .bodyCV {
+        display: flex;
+        min-height: 1200px;
+    }
+
+    .left {
+        text-align: left;
+        border-radius: 10px;
+        height: 500px;
+    }
+
+    .title {
+        width: 180px;
+        height: 50px;
+        background-color: var(--color-cv);
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+    }
+
+    .right {
+        text-align: left;
+    }
+</style>
+
+@*Thêm thuộc tính cho form để upload ảnh*@
+@using (Html.BeginForm("Index", "CV", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <!---->
+    <div class="container mb-20" style="display:flex; justify-content:center;">
+        <div class="containerCV">
+            <div class="head">
+                <div class="row">
+                    <div class="col-md-4 avatar-container ">
+                        <img src="" atl="" class="avatar" id="image" />
+
+                    </div>
+
+                    <div class="col-md-7 mb-10">
+                        <input type="text" class="nameUser" placeholder="HỌ TÊN CỦA BẠN" name="sName" value="@ViewBag.Name" required />
+                        <br />
+                        <input type="text" class="jobUser" name="sJobApp" placeholder="Vị trí ứng tuyển" />
+                    </div>
+                    <input type="file" name="fFileUpload" id="imageFile" onchange="chooseFile(this)" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                    @*Thông báo lỗi yêu cầu phải chọn ảnh*@
+                    @ViewBag.ThongBao
+                </div>
+            </div>
+
+            <div class="bodyCV" style="background-color: #E2E1E1; padding: 30px">
+
+                <div class="left me-5" style="background-color: #ffffff; width: 500px;">
+                    <div class="title my-3">
+                        <h5 class="text-white text-center pt-2">LIÊN HỆ</h5>
+                    </div>
+                    <div style="padding-left: 16px">
+                        <p class="text-truncate me-3">
+                            <i class="fa-solid fa-phone" style="vertical-align:middle; font-size:20px;"></i>
+                            <input type="text" class="inp" placeholder="Số điện thoại" name="sPhone" value="@ViewBag.Phone" required />
+                        </p>
+                        <p class="text-truncate me-3">
+                            <i class="fa-regular fa-envelope" style="vertical-align:middle; font-size:20px;"></i>
+                            <input type="text" class="inp" placeholder="Email" name="sGmail" value="@ViewBag.Gmail" required />
+                        </p>
+                        <p class="text-truncate me-3" style="display:flex;">
+                            <i class="fa-solid fa-house-user" style="font-size:20px; padding-top:5px"></i>
+                            <textarea class="inp" placeholder="Địa chỉ" name="sYourLocation">@ViewBag.YourLocation</textarea>
+                        </p>
+                    </div>
+                    <!---->
+
+                    <div class="title my-3">
+                        <h5 class="text-white text-center pt-2">KỸ NĂNG</h5>
+                    </div>
+                    <div style="padding-left: 30px">
+                        <p class="text-truncate me-3">
+                            <input type="text" class="inp" placeholder="Kỹ năng 1" name="sSkill1" value="@ViewBag.Skill1" required />
+                        </p>
+                        <p class="text-truncate me-3">
+                            <input type="text" class="inp" placeholder="Kỹ năng 2" name="sSkill2" value="@ViewBag.Skill2" required />
+                        </p>
+                    </div>
+
+                </div>
+                <!--RIGHT-->
+                <div class="right" style="width:500px;">
+                    <div class="group" style="background-color: #ffffff; ">
+                        <div class="title my-3">
+                            <h5 class="text-white text-center pt-2">GIỚI THIỆU</h5>
+                        </div>
+                        <div style="padding-left: 16px">
+                            <p class="text-truncate me-3">
+                                <textarea class="inp" placeholder="Giới thiệu" style="min-height: 300px" name="sAboutMe">@ViewBag.AboutMe</textarea>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="group" style="background-color: #ffffff; ">
+                        <div class="title my-3">
+                            <h5 class="text-white text-center pt-2">HỌC VẤN</h5>
+                        </div>
+                        <div style="padding-left: 30px">
+                            <div class="text-truncate me-3">
+                                <h6>Thời gian</h6>
+                                <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime" value="@ViewBag.EducationTime" required />
+                                <span>-  </span>
+                                <input type="text" class="inp" placeholder="Year" style="width:50px" name="sEducationTime2" value="@ViewBag.EducationTime2" required />
+                                <h6>Nơi đào tạo</h6>
+                                <p class="text-truncate me-3">
+                                    <input type="text" class="inp" placeholder="Trường học" name="sEducationName" value="@ViewBag.EducationName" required />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!---->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 my-5">
+            @*<input type="submit" value="Thêm mới" class="btn btn-default" />*@
+            <input type="submit" value="Tạo CV" class="btn btn-outline-primary" style="border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: inherit; margin-left:57%" />
+        </div>
+    </div>
+</div>
+
+}
+
+

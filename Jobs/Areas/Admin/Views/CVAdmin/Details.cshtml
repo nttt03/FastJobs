@@ -1,0 +1,229 @@
+﻿@model Jobs.Models.CV
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function chooseFile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reder = new FileReader();
+            reder.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reder.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>
+<!--#04571c-->
+<style>
+    :root {
+        --color-cv: #006666;
+    }
+
+    .head {
+        background-color: var(--color-cv);
+        padding: 10px;
+    }
+
+    .avatar-container {
+        background-color: #ffffff;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+        margin-left: 10px;
+    }
+
+    .avatar {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-left: 5px;
+        padding: 8px;
+    }
+
+    .nameUser {
+        margin-left: 5px;
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 40px;
+        color: #ffffff;
+        min-width: 10px;
+    }
+
+        .nameUser:focus {
+            outline: none;
+        }
+
+    .jobUser:focus {
+        outline: none;
+    }
+
+    .jobUser {
+        background-color: var(--color-cv);
+        border: none;
+        font-size: 22px;
+        color: #ffffff;
+        min-width: 500px;
+    }
+
+    ::placeholder {
+        color: #808080;
+        opacity: 0.9;
+    }
+
+    .inp {
+        background-color: #ffffff;
+        border: none;
+        font-size: 15px;
+        color: #000000;
+        width: 300px;
+    }
+
+        .inp:focus {
+            outline: none;
+        }
+
+    .containerCV {
+        width: 750px;
+        text-align: center;
+        left: 10%;
+    }
+
+    .bodyCV {
+        display: flex;
+        min-height: 130px;
+    }
+
+    .left {
+        text-align: left;
+        border-radius: 10px;
+        height: 400px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+    }
+
+    .title {
+        width: 180px;
+        height: 50px;
+        background-color: var(--color-cv);
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+    }
+
+    .right {
+        text-align: left;
+        border-radius: 10px;
+        height: 400px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+@*Thêm thuộc tính cho form để upload ảnh*@
+@using (Html.BeginForm("Index", "CV", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!---->
+        <div class="container mb-20" style="display:flex;">
+            <div class="containerCV">
+                <div class="head">
+                    <div class="row">
+                        <div class="col-md-4 avatar-container ">
+                            <img src="~/Images/@Model.Avatar" class="avatar", id="image"/>
+                        </div>
+
+                        <div class="col-md-6 mb-10">
+                            <a class="nameUser">@Html.DisplayFor(modelItem => Model.Name)</a>
+                            <br />
+                            <a class="jobUser">@Html.DisplayFor(modelItem => Model.EducationName2)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bodyCV" style="background-color: #E2E1E1; padding: 30px">
+
+                    <div class="left me-5" style="background-color: #ffffff; width: 300px;">
+                        <div class="title my-3">
+                            <h5 class="text-white text-center pt-2">LIÊN HỆ</h5>
+                        </div>
+                        <div style="padding-left: 16px">
+                            <p>
+                                <i class="fa-solid fa-phone" style="vertical-align:middle; font-size:16px;"></i>
+                                <a class="inp">@Html.DisplayFor(modelItem => Model.Phone)</a>
+                            </p>
+                            <p>
+                                <i class="fa-regular fa-envelope" style="vertical-align:middle; font-size:16px;"></i>
+                                <a class="inp">@Html.DisplayFor(modelItem => Model.Gmail)</a>
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-house-user" style="vertical-align: middle; font-size: 16px;"></i>
+                                <a class="inp">@Html.DisplayFor(modelItem => Model.YourLocation)</a>
+                            </p>
+                        </div>
+                        <!---->
+
+                        <div class="title my-3">
+                            <h5 class="text-white text-center pt-2">KỸ NĂNG</h5>
+                        </div>
+                        <div style="padding-left: 30px">
+                            <p>
+                                - <a class="inp">@Html.DisplayFor(modelItem => Model.Skill1)</a>
+                            </p>
+                            <p>
+                                - <a class="inp">@Html.DisplayFor(modelItem => Model.Skill2)</a>
+                            </p>
+                        </div>
+
+                    </div>
+                    <!--RIGHT-->
+                    <div class="right" style=" width:400px;">
+                        <div class="group" style="background-color: #ffffff; ">
+                            <div class="title my-3">
+                                <h5 class="text-white text-center pt-2">GIỚI THIỆU</h5>
+                            </div>
+                            <div style="padding-left: 16px; padding-bottom: 20px">
+                                <a class="inp">@Html.DisplayFor(modelItem => Model.AboutMe)</a>
+                            </div>
+                        </div>
+
+                        <div class="group" style="background-color: #ffffff; ">
+                            <div class="title my-3">
+                                <h5 class="text-white text-center pt-2">HỌC VẤN</h5>
+                            </div>
+                            <div style="padding-left: 30px; padding-bottom: 20px">
+                                <div>
+                                    <a style="font-size: 17px;">Thời gian</a>
+                                    <p>
+                                    <a class="inp" style="padding-left: 10px">@Html.DisplayFor(modelItem => Model.EducationTime)</a>
+                                    <span> - </span>
+                                    <a class="inp">@Html.DisplayFor(modelItem => Model.EducationTime2)</a>
+                                    </p>
+                                    <a style="font-size: 17px;">Nơi đào tạo</a>
+                                    <p>
+                                      <a class="inp" style="padding-left: 10px">- @Html.DisplayFor(modelItem => Model.EducationName)</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!---->
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index")" class="btn btn-outline-primary" role="button">Về trang Quản lý</a>
+            </div>
+        </div>
+    </div>
+
+}

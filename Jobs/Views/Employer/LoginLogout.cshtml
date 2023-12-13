@@ -1,0 +1,65 @@
+﻿
+@using Jobs.Models
+@{
+    Employer emp = (Employer)Session["AccountEmployer"];
+
+    // Lấy avatar của người dùng hiện tại
+    var get_Avatar = emp?.Avatar;
+
+    // Gán giá trị mặc định cho ViewBag.GetAvatar nếu getAvatar là null
+    //ViewBag.Get_Avatar = get_Avatar ?? "avatar_FJ.png";
+    ViewBag.Get_Avatar = get_Avatar ?? "noavatar.jpg";
+    if(emp != null)
+    {
+        if (emp.IDCompany != null)
+        {
+            ViewBag.url = @Url.Action("updateCompany", "Employer");
+        }
+        else
+        {
+            ViewBag.url = @Url.Action("CreateCompany", "Employer");
+        }
+    }
+
+
+}
+@if (Session["AccountEmployer"] == null) //Giao diện Login
+{
+    <a href="@Url.Action("SignUpEmployer","SigninSignup")" class="btn btn-success px-3 mx-3" role="button">Đăng ký</a>
+    <a href="@Url.Action("SignInEmployer","SigninSignup")" class="btn btn-primary" role="button">Đăng nhập</a>
+    
+}
+else //Giao diện Logout
+{
+
+    <div class="row">
+        <div class="col-3">
+            <div class="fs-4 user-avatar"><img src="~/Images/@ViewBag.Get_Avatar" /></div>
+        </div>
+        <div class="col-9 dropdown">
+
+            <div class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="text-white">Xin chào</span><br />
+                <strong class="text-white" style="vertical-align:middle">@emp.Name</strong>
+            </div>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="@Url.Action("Edit","Account")">Quản lý tài khoản</a></li>
+                <li><a class="dropdown-item" href="@ViewBag.url">Quản lý công ty</a></li>
+                <li><a class="dropdown-item" href="~/SigninSignup/LogoutEmployer">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="#">...</a></li>
+            </ul>
+        </div>
+    </div>
+
+}
+<style>
+
+    .user-avatar > img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100px;
+        object-fit: cover;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+</style>
